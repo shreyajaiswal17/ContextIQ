@@ -60,26 +60,8 @@ export default function Navbar({
           </button>
         </nav>
 
-        {/* Right: Health Status & Actions */}
+        {/* Right: Actions */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          
-          {/* Live Status Pill */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800/80 text-xs font-medium">
-            <span className="flex h-2 w-2 relative">
-              {isHealthy ? (
-                <>
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </>
-              ) : (
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-              )}
-            </span>
-            <span className="text-slate-300 font-mono text-[11px]">
-              {isHealthy ? 'Online' : 'Connecting'}
-            </span>
-          </div>
-
           {/* New Chat Button */}
           {currentView === 'chat' && (
             <button

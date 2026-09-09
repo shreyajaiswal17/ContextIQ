@@ -15,8 +15,7 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
         {/* Top Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 mb-8 shadow-inner">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 mb-8 shadow-inner">
           Interactive DSA Learning & Doubt Solving
         </div>
 

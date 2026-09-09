@@ -50,17 +50,7 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
         {/* Hero Card Container */}
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/70 border border-slate-800/90 shadow-xl backdrop-blur-sm">
           
-          {/* Top Metadata Header */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-800/50 text-[11px] font-mono text-blue-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-              DSA TOPIC
-            </div>
-
-            <span className="text-xs font-mono text-slate-500">
-              {message.timestamp || 'Ready'}
-            </span>
-          </div>
+          
 
           {/* Title & Concept Overview */}
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">

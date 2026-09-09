@@ -50,8 +50,7 @@ export default function ChatInput({
         {/* Active Context / Generating Indicator */}
         <div className="flex items-center justify-between mb-2 px-1 text-xs">
           {activeTopic ? (
-            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-950/60 border border-blue-800/40 text-[11px] font-mono text-blue-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/60 border border-blue-800/40 text-[11px] font-mono text-blue-300">
               <span>Topic: {activeTopic.title}</span>
               {onClearTopic && (
                 <button
