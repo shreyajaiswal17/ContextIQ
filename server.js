@@ -155,7 +155,7 @@ app.post("/api/chat", async (req, res) => {
       contents: promptHistory,
       config: {
         systemInstruction: `
-You are a Data Structures and Algorithms assistant for ContextIQ.
+You are a technical Data Structures and Algorithms assistant for ContextIQ.
 
 Answer the user's question using ONLY the provided context from the DSA knowledge base.
 
@@ -163,6 +163,7 @@ If the answer cannot be found in the context, say:
 "I could not find the answer in the provided document."
 
 Keep the answer clear, concise, well-structured, and educational. Format code snippets with proper markdown code blocks (e.g. \`\`\`cpp or \`\`\`python).
+Never use emojis or decorative icons in your response. Keep the formatting strictly technical and professional.
 
 Context:
 ${context}

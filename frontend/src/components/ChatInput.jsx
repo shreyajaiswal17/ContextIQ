@@ -88,7 +88,7 @@ export default function ChatInput({
         {/* Footer Hint */}
         <div className="flex items-center justify-between mt-1.5 px-1 text-[11px] text-slate-500">
           <span>ContextIQ</span>
-          <span>Press <kbd className="px-1 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-400 font-mono text-[10px]">Enter ↵</kbd></span>
+          <span>Press <kbd className="px-1 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-400 font-mono text-[10px]">Enter</kbd></span>
         </div>
 
       </div>

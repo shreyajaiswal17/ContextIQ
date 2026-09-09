@@ -6,6 +6,12 @@ import ChatInput from './components/ChatInput';
 import HomePage from './components/HomePage';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 
+// Strips all emojis and pictographs
+const stripEmojis = (str) => {
+  if (!str || typeof str !== 'string') return str;
+  return str.replace(/\p{Extended_Pictographic}/gu, '').replace(/\s{2,}/g, ' ').trim();
+};
+
 const INITIAL_GREETING = {
   id: 'initial-greeting',
   role: 'model',
@@ -24,11 +30,8 @@ export default function App() {
 
   const [messages, setMessages] = useState(() => {
     try {
-      const saved = localStorage.getItem('contextiq_chat_history');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed && parsed.length > 0) return parsed;
-      }
+      // Clear legacy cache that may contain emojis
+      localStorage.removeItem('contextiq_chat_history');
       return [INITIAL_GREETING];
     } catch {
       return [INITIAL_GREETING];
@@ -147,7 +150,7 @@ export default function App() {
       const assistantMessage = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        content: data.answer,
+        content: stripEmojis(data.answer),
         timestamp: botTime,
         originalQuestion: text,
       };

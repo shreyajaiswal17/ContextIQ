@@ -190,9 +190,9 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
 
       {/* Footer */}
       <footer className="px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-900 text-center text-xs text-slate-500">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-3">
           <span>ContextIQ</span>
-          <span>•</span>
+          <span>/</span>
           <span>Knowledge & Reasoning Assistant</span>
         </div>
       </footer>
