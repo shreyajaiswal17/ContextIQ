@@ -269,9 +269,7 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
         <div className="text-xs font-mono text-slate-400">
           ContextIQ &middot; RAG-Powered DSA Knowledge Assistant
         </div>
-        <div className="text-[11px] font-mono text-slate-600">
-          Built with Gemini &middot; Pinecone &middot; LangChain
-        </div>
+    
       </footer>
 
     </div>
