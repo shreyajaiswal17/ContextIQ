@@ -5,44 +5,44 @@ export default function Navbar({
   onNewChat, 
   isGenerating, 
   toggleSidebar,
-  currentView,
+  currentView, 
   onNavigate 
 }) {
   const isHealthy = systemStatus?.status === 'healthy';
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-slate-950 border-b border-slate-800">
+    <header className="sticky top-0 z-30 w-full bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         
-        {/* Left: Branding */}
-        <div className="flex items-center gap-4">
+        {/* Left: Branding & Mobile Menu Toggle */}
+        <div className="flex items-center gap-3 sm:gap-4">
           {currentView === 'chat' && (
             <button
               onClick={toggleSidebar}
-              className="px-2.5 py-1 text-xs text-slate-400 hover:text-white bg-slate-900 border border-slate-800 rounded md:hidden"
+              className="px-2.5 py-1 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg md:hidden transition-colors"
             >
-              Menu
+              Topics
             </button>
           )}
 
           <div 
             onClick={() => onNavigate('home')}
-            className="cursor-pointer select-none"
+            className="cursor-pointer select-none flex items-center gap-2 group"
           >
-            <span className="text-lg font-bold tracking-tight text-white">
-              Context<span className="text-cyan-400">IQ</span>
+            <span className="text-lg font-bold tracking-tight text-white group-hover:text-slate-100 transition-colors">
+              Context<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">IQ</span>
             </span>
           </div>
         </div>
 
-        {/* Center: Clean Text Navigation Tabs */}
-        <nav className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg p-1">
+        {/* Center: Segmented Navigation Switcher */}
+        <nav className="flex items-center bg-slate-900/90 border border-slate-800/90 rounded-xl p-1 shadow-inner">
           <button
             onClick={() => onNavigate('home')}
-            className={`px-4 py-1.5 rounded text-xs font-medium transition-colors ${
+            className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all ${
               currentView === 'home'
-                ? 'bg-slate-800 text-white'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-slate-800 text-white shadow-sm font-semibold'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             Home
@@ -50,22 +50,34 @@ export default function Navbar({
 
           <button
             onClick={() => onNavigate('chat')}
-            className={`px-4 py-1.5 rounded text-xs font-medium transition-colors ${
+            className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all ${
               currentView === 'chat'
-                ? 'bg-slate-800 text-white'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-slate-800 text-white shadow-sm font-semibold'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             Assistant
           </button>
         </nav>
 
-        {/* Right: Status & Actions */}
-        <div className="flex items-center gap-3">
+        {/* Right: Health Status & Actions */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
           
-          {/* Text-only Status */}
-          <div className="hidden sm:block px-3 py-1 rounded bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300">
-            {isHealthy ? 'Online' : 'Connecting'}
+          {/* Live Status Pill */}
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800/80 text-xs font-medium">
+            <span className="flex h-2 w-2 relative">
+              {isHealthy ? (
+                <>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </>
+              ) : (
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              )}
+            </span>
+            <span className="text-slate-300 font-mono text-[11px]">
+              {isHealthy ? 'Online' : 'Connecting'}
+            </span>
           </div>
 
           {/* New Chat Button */}
@@ -73,7 +85,7 @@ export default function Navbar({
             <button
               onClick={onNewChat}
               disabled={isGenerating}
-              className="px-3.5 py-1.5 rounded bg-slate-900 hover:bg-slate-800 active:scale-95 text-slate-200 hover:text-white text-xs font-medium border border-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 active:scale-95 text-slate-200 hover:text-white text-xs font-medium border border-slate-700/80 transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
             >
               New Chat
             </button>
@@ -82,9 +94,9 @@ export default function Navbar({
           {currentView === 'home' && (
             <button
               onClick={() => onNavigate('chat')}
-              className="px-4 py-1.5 rounded bg-slate-100 hover:bg-white text-slate-950 text-xs font-medium transition-colors"
+              className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-xs font-medium transition-all shadow-sm shadow-blue-600/20"
             >
-              Launch Chat
+              Launch Assistant
             </button>
           )}
 

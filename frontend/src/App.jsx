@@ -13,18 +13,22 @@ const stripEmojis = (str) => {
 const INITIAL_GREETING = {
   id: 'initial-greeting',
   role: 'model',
-  content: `How can I help you today?\n\n*Ask me anything -->*`,
-  timestamp: 'Just now',
+  isStarter: true,
+  topicTitle: "Data Structures & Algorithms",
+  topicDesc: "Ask any doubt, concept breakdown, algorithm dry run, or code implementation in C++, Python, or Java.",
+  tags: ["Arrays & Hashing", "Trees & Graphs", "Dynamic Programming", "Binary Search", "Complexity"],
+  timestamp: 'Ready',
   suggestions: [
-    "What is a Binary Search Tree?",
-    "Explain Kadane's algorithm for maximum subarray",
-    "Compare QuickSort vs MergeSort",
-    "How does Dijkstra's algorithm work?"
+    "What is a Binary Search Tree and how do you validate it?",
+    "Explain Kadane's algorithm for maximum subarray sum with proof",
+    "Compare QuickSort vs MergeSort: partition logic and stability",
+    "How does Dijkstra's algorithm work with a priority queue?"
   ],
 };
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home' | 'chat'
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   const [messages, setMessages] = useState(() => {
     try {
@@ -39,7 +43,7 @@ export default function App() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [errorBanner, setErrorBanner] = useState(null);
-  const [inputPlaceholder, setInputPlaceholder] = useState("Ask me anything --> ");
+  const [inputPlaceholder, setInputPlaceholder] = useState("Ask any doubt, concept, or code implementation...");
 
   const messagesEndRef = useRef(null);
 
@@ -52,14 +56,6 @@ export default function App() {
       scrollToBottom();
     }
   }, [messages, isGenerating, currentView]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('contextiq_chat_history', JSON.stringify(messages));
-    } catch (e) {
-      console.warn("Could not save to localStorage", e);
-    }
-  }, [messages]);
 
   const fetchHealth = async () => {
     try {
@@ -84,7 +80,7 @@ export default function App() {
 
   const buildGeminiHistory = () => {
     return messages
-      .filter((m) => m.id !== 'initial-greeting' && !m.id?.startsWith('topic-greeting-'))
+      .filter((m) => !m.isStarter && m.id !== 'initial-greeting' && !m.id?.startsWith('topic-greeting-'))
       .map((m) => ({
         role: m.role === 'user' ? 'user' : 'model',
         parts: [{ text: m.content }],
@@ -92,17 +88,21 @@ export default function App() {
   };
 
   const handleSelectTopic = (topic) => {
+    setSelectedTopic(topic);
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const topicGreeting = {
       id: `topic-greeting-${Date.now()}`,
       role: 'model',
-      content: `How can I help you with **${topic.title}**?\n\n*Ask me anything -->*`,
+      isStarter: true,
+      topicTitle: topic.title,
+      topicDesc: topic.desc,
+      tags: topic.tags || [],
       timestamp: time,
       suggestions: topic.suggestions || [],
     };
 
     setMessages([topicGreeting]);
-    setInputPlaceholder(`Ask me anything about ${topic.title} --> `);
+    setInputPlaceholder(`Ask me anything about ${topic.title}...`);
     setCurrentView('chat');
   };
 
@@ -171,16 +171,17 @@ export default function App() {
 
   const handleNewChat = () => {
     if (isGenerating) return;
+    setSelectedTopic(null);
     setMessages([INITIAL_GREETING]);
-    setInputPlaceholder("Ask me anything --> ");
+    setInputPlaceholder("Ask any doubt, concept, or code implementation...");
     localStorage.removeItem('contextiq_chat_history');
     setCurrentView('chat');
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-600/30 selection:text-blue-200">
       
-      {/* Top Navigation */}
+      {/* Top Navigation Bar */}
       <Navbar
         systemStatus={systemStatus}
         onNewChat={handleNewChat}
@@ -194,31 +195,50 @@ export default function App() {
       {currentView === 'home' ? (
         <HomePage 
           onStartChat={() => setCurrentView('chat')}
-          onSelectTopic={(topic) => {
-            handleSelectTopic(topic);
-          }}
+          onSelectTopic={handleSelectTopic}
         />
       ) : (
         <div className="flex-1 flex overflow-hidden">
           
-          {/* Sidebar */}
+          {/* Left Sidebar */}
           <Sidebar
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
             onSelectTopic={handleSelectTopic}
+            selectedTopic={selectedTopic}
             messageCount={messages.length}
           />
 
-          {/* Chat Main Area */}
-          <main className="flex-1 flex flex-col min-w-0 md:ml-72">
+          {/* Main Chat Panel */}
+          <main className="flex-1 flex flex-col min-w-0 md:ml-72 bg-slate-950/60">
             
+            {/* Top Sub-Bar: Active Topic Breadcrumb */}
+            <div className="h-10 px-4 sm:px-6 border-b border-slate-900 bg-slate-950/70 backdrop-blur-xs flex items-center justify-between text-xs text-slate-400">
+              <div className="flex items-center gap-2 font-mono">
+                <span className="text-slate-500">Assistant</span>
+                <span className="text-slate-700">/</span>
+                <span className="text-slate-300 font-medium">
+                  {selectedTopic ? selectedTopic.title : 'General Doubt Solving'}
+                </span>
+              </div>
+
+              {selectedTopic && (
+                <button
+                  onClick={handleNewChat}
+                  className="text-[11px] font-mono text-slate-400 hover:text-white transition-colors"
+                >
+                  Clear Topic &times;
+                </button>
+              )}
+            </div>
+
             {/* Global Error Banner */}
             {errorBanner && (
-              <div className="mx-4 mt-3 p-2.5 rounded bg-red-950/40 border border-red-900 flex items-center justify-between text-xs text-red-300">
+              <div className="mx-4 mt-3 p-3 rounded-xl bg-red-950/50 border border-red-900/80 flex items-center justify-between text-xs text-red-300 shadow-sm">
                 <span>{errorBanner}</span>
                 <button 
                   onClick={fetchHealth}
-                  className="px-2 py-0.5 rounded bg-red-900 hover:bg-red-800 text-white text-[11px]"
+                  className="px-2.5 py-1 rounded-lg bg-red-900 hover:bg-red-800 text-white text-[11px] font-medium transition-colors"
                 >
                   Retry
                 </button>
@@ -227,7 +247,7 @@ export default function App() {
 
             {/* Conversation Stream */}
             <div className="flex-1 overflow-y-auto">
-              <div className="divide-y divide-slate-900 pb-4">
+              <div className="pb-6">
                 {messages.map((message) => (
                   <ChatMessage 
                     key={message.id} 
@@ -239,12 +259,14 @@ export default function App() {
               </div>
             </div>
 
-            {/* Chat Input */}
+            {/* Chat Input Dock */}
             <ChatInput
               onSendMessage={handleSendMessage}
               isGenerating={isGenerating}
               disabled={systemStatus?.status === 'error'}
               placeholder={inputPlaceholder}
+              activeTopic={selectedTopic}
+              onClearTopic={handleNewChat}
             />
 
           </main>
