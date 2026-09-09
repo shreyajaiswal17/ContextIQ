@@ -11,8 +11,8 @@ export const DSA_TOPICS = [
     id: "arrays-hashing",
     title: "Arrays & Hashing",
     category: "Data Structures",
-    desc: "Ask about array operations, hashing, frequency maps, prefix sums, and common algorithmic concepts.",
-    tags: ["Arrays", "HashMaps", "PrefixSums"],
+    desc: "Ask about arrays, hashing, frequency maps, prefix sums, and common algorithmic patterns.",
+    tags: ["Arrays", "HashMap", "PrefixSums"],
     suggestions: [
       "Explain Kadane's algorithm for maximum subarray sum.",
       "How does Two Sum work with a Hash Map in O(N) time?",
@@ -23,7 +23,7 @@ export const DSA_TOPICS = [
     id: "strings",
     title: "Strings",
     category: "Data Structures",
-    desc: "Ask about string manipulation, pattern matching, palindromes, and sliding window string algorithms.",
+    desc: "Ask about string manipulation, pattern matching, palindromes, and sliding window techniques.",
     tags: ["Strings", "PatternMatching", "SlidingWindow"],
     suggestions: [
       "How does the KMP algorithm find substring matches in O(N + M)?",
@@ -35,7 +35,7 @@ export const DSA_TOPICS = [
     id: "linked-lists",
     title: "Linked Lists",
     category: "Data Structures",
-    desc: "Ask about singly and doubly linked lists, pointer manipulation, cycle detection, and list reversals.",
+    desc: "Ask about singly and doubly linked lists, pointer manipulation, cycle detection, and reversals.",
     tags: ["Pointers", "CycleDetection", "Lists"],
     suggestions: [
       "How does Floyd's cycle detection algorithm work in linked lists?",
@@ -59,7 +59,7 @@ export const DSA_TOPICS = [
     id: "heaps",
     title: "Heaps",
     category: "Data Structures",
-    desc: "Ask about min/max heaps, priority queue operations, top-K elements, and heap sort.",
+    desc: "Ask about min/max heaps, priority queues, heapify mechanics, and top-K algorithmic patterns.",
     tags: ["PriorityQueue", "BinaryHeap", "TopK"],
     suggestions: [
       "How does a binary min-heap maintain its heap property?",
@@ -73,7 +73,7 @@ export const DSA_TOPICS = [
     id: "binary-search",
     title: "Binary Search",
     category: "Algorithms & Searching",
-    desc: "Ask about search in sorted arrays, rotated arrays, lower/upper bounds, and search-on-answer space.",
+    desc: "Ask about search in sorted arrays, rotated arrays, lower/upper bounds, and answer-space search.",
     tags: ["BinarySearch", "Logarithmic", "SortedArrays"],
     suggestions: [
       "How does binary search work on a rotated sorted array?",
@@ -85,7 +85,7 @@ export const DSA_TOPICS = [
     id: "sorting-algorithms",
     title: "Sorting Algorithms",
     category: "Algorithms & Searching",
-    desc: "Ask about comparison sorts, divide-and-conquer, partition mechanisms, stability, and runtimes.",
+    desc: "Ask about comparison sorts, divide-and-conquer, partition mechanics, stability, and runtimes.",
     tags: ["MergeSort", "QuickSort", "Stability"],
     suggestions: [
       "What is the time complexity of merge sort and why is it O(N log N)?",
@@ -111,7 +111,7 @@ export const DSA_TOPICS = [
     id: "trees",
     title: "Trees",
     category: "Trees & Graphs",
-    desc: "Explore binary trees, BST operations, traversals, balancing, and related algorithms.",
+    desc: "Ask about binary trees, BST operations, tree traversals, tree balancing, and lowest common ancestors.",
     tags: ["BinaryTree", "BST", "Traversals"],
     suggestions: [
       "What is a Binary Search Tree and how does insertion work?",
@@ -123,8 +123,8 @@ export const DSA_TOPICS = [
     id: "graphs",
     title: "Graphs",
     category: "Trees & Graphs",
-    desc: "Ask about BFS, DFS, shortest paths, spanning trees, and graph representations.",
-    tags: ["BFS", "DFS", "Dijkstra", "ShortestPath"],
+    desc: "Ask about BFS, DFS, shortest path algorithms, topological sorting, and graph representations.",
+    tags: ["BFS", "DFS", "ShortestPath"],
     suggestions: [
       "Explain the difference between BFS and DFS.",
       "How does Dijkstra's algorithm find the shortest path?",
@@ -137,7 +137,7 @@ export const DSA_TOPICS = [
     id: "dynamic-programming",
     title: "Dynamic Programming",
     category: "Advanced Concepts",
-    desc: "Understand states, transitions, memoization, tabulation, and common DP patterns.",
+    desc: "Ask about optimal substructure, overlapping subproblems, memoization, and tabulation.",
     tags: ["Memoization", "Tabulation", "OptimalSubstructure"],
     suggestions: [
       "Explain the difference between top-down memoization and bottom-up tabulation.",
@@ -149,7 +149,7 @@ export const DSA_TOPICS = [
     id: "complexity",
     title: "Time & Space Complexity",
     category: "Advanced Concepts",
-    desc: "Ask about asymptotic notation, recurrence relations, Master's Theorem, and complexity trade-offs.",
+    desc: "Ask about asymptotic notation, recurrence relations, Master's theorem, and memory bounds.",
     tags: ["BigO", "Recurrence", "SpaceComplexity"],
     suggestions: [
       "What is the difference between Big-O, Big-Theta, and Big-Omega?",
