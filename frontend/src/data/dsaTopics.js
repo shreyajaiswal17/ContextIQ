@@ -1,82 +1,70 @@
 export const DSA_CATEGORIES = [
-  "Core Data Structures",
+  "Data Structures",
   "Algorithms & Searching",
   "Trees & Graphs",
-  "Advanced & Optimization"
+  "Advanced Concepts"
 ];
 
 export const DSA_TOPICS = [
-  // Core Data Structures
+  // Data Structures
   {
     id: "arrays-hashing",
     title: "Arrays & Hashing",
-    category: "Core Data Structures",
-    desc: "Two Sum, Kadane's algorithm, Dutch National Flag, and hash table amortized O(1) lookups.",
-    tags: ["Hash Map", "Prefix Sum", "Frequency Count"],
+    category: "Data Structures",
+    desc: "Ask about array operations, hashing, frequency maps, prefix sums, and common algorithmic concepts.",
+    tags: ["Arrays", "HashMaps", "PrefixSums"],
     suggestions: [
-      "Kadane's Algorithm for Maximum Subarray Sum with intuition and code",
-      "Two Sum problem in O(N) time using Hashing",
-      "Dutch National Flag algorithm (Sort 0s, 1s, and 2s)"
+      "Explain Kadane's algorithm for maximum subarray sum.",
+      "How does Two Sum work with a Hash Map in O(N) time?",
+      "What is the Dutch National Flag problem and its three-way partition?"
     ]
   },
   {
-    id: "strings-pattern-matching",
-    title: "Strings & Pattern Matching",
-    category: "Core Data Structures",
-    desc: "Anagrams, palindromes, sliding window frequency matches, and KMP pattern search.",
-    tags: ["KMP Algorithm", "Sliding Window", "Rolling Hash"],
+    id: "strings",
+    title: "Strings",
+    category: "Data Structures",
+    desc: "Ask about string manipulation, pattern matching, palindromes, and sliding window string algorithms.",
+    tags: ["Strings", "PatternMatching", "SlidingWindow"],
     suggestions: [
-      "Check if two strings are valid Anagrams in O(N) time",
-      "KMP (Knuth-Morris-Pratt) algorithm and the LPS array",
-      "Longest Palindromic Substring optimal dynamic programming approach"
+      "How does the KMP algorithm find substring matches in O(N + M)?",
+      "Explain how to check if two strings are valid anagrams.",
+      "How do you find the longest palindromic substring?"
     ]
   },
   {
     id: "linked-lists",
     title: "Linked Lists",
-    category: "Core Data Structures",
-    desc: "Single/doubly linked list reversals, cycle detection, fast-slow pointers, and LRU cache.",
-    tags: ["Fast-Slow Pointers", "Reversal", "LRU Cache"],
+    category: "Data Structures",
+    desc: "Ask about singly and doubly linked lists, pointer manipulation, cycle detection, and list reversals.",
+    tags: ["Pointers", "CycleDetection", "Lists"],
     suggestions: [
-      "Reverse a Singly Linked List iteratively and recursively",
-      "Floyd's Cycle Detection algorithm to detect loops in a linked list",
-      "Design an LRU Cache using Doubly Linked List and Hash Map"
+      "How does Floyd's cycle detection algorithm work in linked lists?",
+      "How do you reverse a singly linked list iteratively and recursively?",
+      "How can you implement an LRU cache with a doubly linked list?"
     ]
   },
   {
     id: "stacks-queues",
     title: "Stacks & Queues",
-    category: "Core Data Structures",
-    desc: "Monotonic stacks, next greater elements, queue with stacks, and trapping rainwater.",
-    tags: ["Monotonic Stack", "LIFO / FIFO", "Next Greater Element"],
+    category: "Data Structures",
+    desc: "Ask about LIFO/FIFO mechanics, monotonic stacks, queue implementations, and expression parsing.",
+    tags: ["MonotonicStack", "LIFO", "Queues"],
     suggestions: [
-      "Monotonic Stack pattern for Next Greater Element",
-      "Trapping Rainwater using two pointers or monotonic stack",
-      "Implement a Queue using two Stacks"
+      "What is a monotonic stack and when should it be used?",
+      "How do you solve the Next Greater Element problem using a stack?",
+      "How do you implement a queue using two stacks?"
     ]
   },
   {
-    id: "heaps-priority-queues",
-    title: "Heaps & Priority Queues",
-    category: "Core Data Structures",
-    desc: "Min-heap, max-heap, top K frequent elements, running median, and O(N) heapify.",
-    tags: ["Min/Max Heap", "Top-K", "Running Median"],
+    id: "heaps",
+    title: "Heaps",
+    category: "Data Structures",
+    desc: "Ask about min/max heaps, priority queue operations, top-K elements, and heap sort.",
+    tags: ["PriorityQueue", "BinaryHeap", "TopK"],
     suggestions: [
-      "Find Kth Largest Element in an array using Min-Heap",
-      "Find Median in a running data stream using two heaps",
-      "Heapify algorithm and its O(N) time complexity proof"
-    ]
-  },
-  {
-    id: "tries-prefix-trees",
-    title: "Tries (Prefix Trees)",
-    category: "Core Data Structures",
-    desc: "Prefix lookups, word dictionaries, autocomplete engines, and bitwise XOR tries.",
-    tags: ["Prefix Search", "Bitwise Trie", "Autocomplete"],
-    suggestions: [
-      "Implement a Trie with Insert, Search, and startsWith methods",
-      "Find Maximum XOR of Two Numbers in an array using Trie",
-      "Autocomplete and dictionary prefix matching with Trie"
+      "How does a binary min-heap maintain its heap property?",
+      "Why is building a binary heap (heapify) an O(N) operation?",
+      "How do you find the Kth largest element using a min-heap?"
     ]
   },
 
@@ -85,160 +73,88 @@ export const DSA_TOPICS = [
     id: "binary-search",
     title: "Binary Search",
     category: "Algorithms & Searching",
-    desc: "Lower/upper bounds, search in rotated sorted arrays, and search on answer space.",
-    tags: ["Answer Space", "Rotated Arrays", "O(log N)"],
+    desc: "Ask about search in sorted arrays, rotated arrays, lower/upper bounds, and search-on-answer space.",
+    tags: ["BinarySearch", "Logarithmic", "SortedArrays"],
     suggestions: [
-      "Binary Search on a Rotated Sorted Array with edge cases",
-      "Binary Search on Answer Space (Book Allocation problem)",
-      "Search in a 2D sorted matrix in O(log(M*N)) time"
-    ]
-  },
-  {
-    id: "two-pointers-sliding-window",
-    title: "Two Pointers & Sliding Window",
-    category: "Algorithms & Searching",
-    desc: "Opposite ends, fast/slow runners, fixed and variable-sized sliding windows.",
-    tags: ["Subarrays", "3-Sum", "Variable Window"],
-    suggestions: [
-      "Longest Substring Without Repeating Characters using Sliding Window",
-      "Two Pointer approach for the 3-Sum problem",
-      "Minimum Window Substring optimal two-pointer approach"
+      "How does binary search work on a rotated sorted array?",
+      "Explain the binary search on answer space concept.",
+      "How do you find lower bound and upper bound using binary search?"
     ]
   },
   {
     id: "sorting-algorithms",
     title: "Sorting Algorithms",
     category: "Algorithms & Searching",
-    desc: "QuickSort partition logic, MergeSort divide-and-conquer, stability, and worst cases.",
-    tags: ["QuickSort", "MergeSort", "Stability"],
+    desc: "Ask about comparison sorts, divide-and-conquer, partition mechanisms, stability, and runtimes.",
+    tags: ["MergeSort", "QuickSort", "Stability"],
     suggestions: [
-      "QuickSort vs MergeSort: time complexity and partition logic",
-      "MergeSort recursively on linked lists vs arrays",
-      "Worst-case scenario for QuickSort and randomized pivoting"
+      "What is the time complexity of merge sort and why is it O(N log N)?",
+      "Compare QuickSort vs MergeSort in terms of space and stability.",
+      "What is the worst-case scenario for QuickSort and how to avoid it?"
     ]
   },
   {
-    id: "recursion-backtracking",
+    id: "recursion",
     title: "Recursion & Backtracking",
     category: "Algorithms & Searching",
-    desc: "Permutations, subsets, combination sum, N-Queens, and state pruning.",
-    tags: ["State Space Tree", "Pruning", "N-Queens"],
+    desc: "Ask about recursive call trees, state pruning, backtracking search, and combinatorial generation.",
+    tags: ["Backtracking", "CallStack", "Recursion"],
     suggestions: [
-      "Backtracking solution for the N-Queens problem",
-      "Combination Sum using recursion and branch pruning",
-      "Sudoku Solver algorithm using recursive backtracking"
-    ]
-  },
-  {
-    id: "greedy-algorithms",
-    title: "Greedy Algorithms",
-    category: "Algorithms & Searching",
-    desc: "Interval scheduling, jump game, fractional knapsack, and greedy choice proofs.",
-    tags: ["Intervals", "Jump Game", "Optimal Substructure"],
-    suggestions: [
-      "N Meetings in One Room problem and finish-time sorting",
-      "Jump Game I and II greedy approach",
-      "Fractional Knapsack problem and greedy choice property"
+      "How does backtracking work in the N-Queens problem?",
+      "Explain the difference between simple recursion and backtracking.",
+      "How do you generate all permutations of an array using recursion?"
     ]
   },
 
   // Trees & Graphs
   {
-    id: "binary-trees",
-    title: "Binary Trees",
+    id: "trees",
+    title: "Trees",
     category: "Trees & Graphs",
-    desc: "DFS traversals, level-order BFS, lowest common ancestor (LCA), and tree diameter.",
-    tags: ["Traversals", "LCA", "Diameter"],
+    desc: "Explore binary trees, BST operations, traversals, balancing, and related algorithms.",
+    tags: ["BinaryTree", "BST", "Traversals"],
     suggestions: [
-      "Inorder, Preorder, Postorder, and Level-Order traversals",
-      "Lowest Common Ancestor (LCA) in a Binary Tree",
-      "Diameter and Maximum Depth of a Binary Tree"
+      "What is a Binary Search Tree and how does insertion work?",
+      "Explain Inorder, Preorder, and Postorder tree traversals.",
+      "How do you find the Lowest Common Ancestor (LCA) in a binary tree?"
     ]
   },
   {
-    id: "binary-search-trees",
-    title: "Binary Search Trees (BST)",
+    id: "graphs",
+    title: "Graphs",
     category: "Trees & Graphs",
-    desc: "BST property, search, insert, delete, BST validation, and inorder successor.",
-    tags: ["Validation", "Successor", "Floor/Ceil"],
+    desc: "Ask about BFS, DFS, shortest paths, spanning trees, and graph representations.",
+    tags: ["BFS", "DFS", "Dijkstra", "ShortestPath"],
     suggestions: [
-      "Validate if a Binary Tree is a valid BST",
-      "Insertion and deletion operations in a Binary Search Tree",
-      "Floor and Ceil values in a BST"
-    ]
-  },
-  {
-    id: "avl-trees",
-    title: "AVL Trees & Balance",
-    category: "Trees & Graphs",
-    desc: "Self-balancing binary trees, balance factor, LL/RR/LR/RL rotations, and Red-Black trees.",
-    tags: ["Rotations", "Balance Factor", "O(log N) Guarantee"],
-    suggestions: [
-      "The 4 AVL tree rotation cases: LL, RR, LR, and RL",
-      "How AVL trees maintain strict O(log N) height balance",
-      "Compare AVL trees with Red-Black trees"
-    ]
-  },
-  {
-    id: "graph-algorithms",
-    title: "Graph Algorithms",
-    category: "Trees & Graphs",
-    desc: "BFS/DFS, cycle detection in directed/undirected graphs, Dijkstra, and Topological Sort.",
-    tags: ["Dijkstra", "Topological Sort", "Cycle Detection"],
-    suggestions: [
-      "BFS and DFS graph traversals and cycle detection",
-      "Dijkstra's algorithm for single-source shortest paths",
-      "Topological Sort using Kahn's algorithm (indegrees)"
-    ]
-  },
-  {
-    id: "disjoint-set-mst",
-    title: "Disjoint Set (Union-Find) & MST",
-    category: "Trees & Graphs",
-    desc: "Union by rank, path compression, Kruskal's MST, Prim's algorithm, and connected components.",
-    tags: ["Path Compression", "Kruskal MST", "Prim MST"],
-    suggestions: [
-      "Disjoint Set Union (DSU) with Path Compression and Union by Rank",
-      "Kruskal's algorithm to find Minimum Spanning Tree (MST)",
-      "Prim's algorithm for Minimum Spanning Tree"
+      "Explain the difference between BFS and DFS.",
+      "How does Dijkstra's algorithm find the shortest path?",
+      "How does topological sort work using Kahn's algorithm?"
     ]
   },
 
-  // Advanced & Optimization
+  // Advanced Concepts
   {
     id: "dynamic-programming",
     title: "Dynamic Programming",
-    category: "Advanced & Optimization",
-    desc: "Memoization, tabulation, 0/1 knapsack, LCS, LIS, grid DP, and space reduction.",
-    tags: ["Knapsack", "LCS / LIS", "Space Optimization"],
+    category: "Advanced Concepts",
+    desc: "Understand states, transitions, memoization, tabulation, and common DP patterns.",
+    tags: ["Memoization", "Tabulation", "OptimalSubstructure"],
     suggestions: [
-      "0/1 Knapsack: Recursive vs Memoization vs Tabulation",
-      "Longest Common Subsequence (LCS) with 2D DP and state transition",
-      "Coin Change problem: Minimum coins to make amount"
+      "Explain the difference between top-down memoization and bottom-up tabulation.",
+      "How do you define states and transitions in the 0/1 Knapsack problem?",
+      "How does the Longest Common Subsequence (LCS) problem use 2D DP?"
     ]
   },
   {
-    id: "bit-manipulation",
-    title: "Bit Manipulation",
-    category: "Advanced & Optimization",
-    desc: "Bitwise XOR, AND, OR, bit masks, power of 2 check, and Hamming weight.",
-    tags: ["XOR Tricks", "Bitmasks", "Hamming Weight"],
-    suggestions: [
-      "Find the single non-repeating number using XOR",
-      "Check if a number is a power of 2 using bitwise AND",
-      "Count set bits (Hamming weight) efficiently"
-    ]
-  },
-  {
-    id: "complexity-analysis",
+    id: "complexity",
     title: "Time & Space Complexity",
-    category: "Advanced & Optimization",
-    desc: "Big-O, Big-Theta, Big-Omega, Master's Theorem for divide-and-conquer, and amortized bounds.",
-    tags: ["Big-O", "Master's Theorem", "Amortized Analysis"],
+    category: "Advanced Concepts",
+    desc: "Ask about asymptotic notation, recurrence relations, Master's Theorem, and complexity trade-offs.",
+    tags: ["BigO", "Recurrence", "SpaceComplexity"],
     suggestions: [
-      "Big-O, Big-Theta, and Big-Omega practical comparison",
-      "Master's Theorem for divide-and-conquer recurrences",
-      "Time and space trade-offs in recursive vs iterative algorithms"
+      "What is the difference between Big-O, Big-Theta, and Big-Omega?",
+      "How do you apply Master's Theorem to divide-and-conquer recurrences?",
+      "What is auxiliary space vs total space complexity?"
     ]
   }
 ];

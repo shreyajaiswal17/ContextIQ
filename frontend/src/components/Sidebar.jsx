@@ -47,7 +47,7 @@ export default function Sidebar({
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-800/80">
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
-                DSA Topics
+                Knowledge Topics
               </span>
               <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700/60">
                 {DSA_TOPICS.length}
@@ -68,7 +68,7 @@ export default function Sidebar({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search topics, algorithms, problems..."
+              placeholder="Search topics..."
               className="w-full bg-slate-950/80 border border-slate-800 rounded-lg px-3 py-1.5 pr-7 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/20 transition-all font-mono"
             />
             {searchQuery && (
@@ -160,7 +160,7 @@ export default function Sidebar({
 
         {/* Footer info */}
         <div className="p-3 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-500 flex items-center justify-between font-mono">
-          <span>19 Core Topics</span>
+          <span>Knowledge Base</span>
           <span>{messageCount} msg{messageCount === 1 ? '' : 's'}</span>
         </div>
       </aside>

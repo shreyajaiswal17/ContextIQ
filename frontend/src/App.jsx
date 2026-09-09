@@ -14,15 +14,15 @@ const INITIAL_GREETING = {
   id: 'initial-greeting',
   role: 'model',
   isStarter: true,
-  topicTitle: "Data Structures & Algorithms",
-  topicDesc: "Ask any doubt, concept breakdown, algorithm dry run, or code implementation in C++, Python, or Java.",
-  tags: ["Arrays & Hashing", "Trees & Graphs", "Dynamic Programming", "Binary Search", "Complexity"],
+  topicTitle: "Ask ContextIQ",
+  topicDesc: "Ask a DSA concept, algorithm, complexity, or implementation question. ContextIQ retrieves relevant knowledge before generating the response.",
+  tags: ["Arrays", "Trees", "Graphs", "DynamicProgramming", "Complexity"],
   timestamp: 'Ready',
   suggestions: [
-    "What is a Binary Search Tree and how do you validate it?",
-    "Explain Kadane's algorithm for maximum subarray sum with proof",
-    "Compare QuickSort vs MergeSort: partition logic and stability",
-    "How does Dijkstra's algorithm work with a priority queue?"
+    "What is a Binary Search Tree and how does insertion work?",
+    "Explain the difference between BFS and DFS.",
+    "How does Dijkstra's algorithm find the shortest path?",
+    "What is the time complexity of merge sort?"
   ],
 };
 
@@ -41,9 +41,10 @@ export default function App() {
 
   const [systemStatus, setSystemStatus] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationPhase, setGenerationPhase] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [errorBanner, setErrorBanner] = useState(null);
-  const [inputPlaceholder, setInputPlaceholder] = useState("Ask any doubt, concept, or code implementation...");
+  const [inputPlaceholder, setInputPlaceholder] = useState("Ask a DSA question or concept...");
 
   const messagesEndRef = useRef(null);
 
@@ -102,7 +103,7 @@ export default function App() {
     };
 
     setMessages([topicGreeting]);
-    setInputPlaceholder(`Ask me anything about ${topic.title}...`);
+    setInputPlaceholder(`Ask about ${topic.title}...`);
     setCurrentView('chat');
   };
 
@@ -123,6 +124,11 @@ export default function App() {
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setIsGenerating(true);
+    setGenerationPhase("Retrieving relevant context...");
+
+    const phaseTimer = setTimeout(() => {
+      setGenerationPhase("Generating grounded response...");
+    }, 850);
 
     try {
       const historyPayload = buildGeminiHistory();
@@ -150,6 +156,8 @@ export default function App() {
         content: stripEmojis(data.answer),
         timestamp: botTime,
         originalQuestion: text,
+        rewrittenQuestion: data.rewrittenQuestion,
+        sources: data.sources || [],
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -165,6 +173,8 @@ export default function App() {
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
+      clearTimeout(phaseTimer);
+      setGenerationPhase(null);
       setIsGenerating(false);
     }
   };
@@ -173,7 +183,7 @@ export default function App() {
     if (isGenerating) return;
     setSelectedTopic(null);
     setMessages([INITIAL_GREETING]);
-    setInputPlaceholder("Ask any doubt, concept, or code implementation...");
+    setInputPlaceholder("Ask a DSA question or concept...");
     localStorage.removeItem('contextiq_chat_history');
     setCurrentView('chat');
   };
@@ -218,7 +228,7 @@ export default function App() {
                 <span className="text-slate-500">Assistant</span>
                 <span className="text-slate-700">/</span>
                 <span className="text-slate-300 font-medium">
-                  {selectedTopic ? selectedTopic.title : 'General Doubt Solving'}
+                  {selectedTopic ? selectedTopic.title : 'Knowledge Base'}
                 </span>
               </div>
 
@@ -263,6 +273,7 @@ export default function App() {
             <ChatInput
               onSendMessage={handleSendMessage}
               isGenerating={isGenerating}
+              generationPhase={generationPhase}
               disabled={systemStatus?.status === 'error'}
               placeholder={inputPlaceholder}
               activeTopic={selectedTopic}

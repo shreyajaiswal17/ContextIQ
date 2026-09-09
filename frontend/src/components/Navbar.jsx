@@ -78,7 +78,7 @@ export default function Navbar({
               onClick={() => onNavigate('chat')}
               className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-xs font-medium transition-all shadow-sm shadow-blue-600/20"
             >
-              Launch Assistant
+              Ask ContextIQ
             </button>
           )}
 

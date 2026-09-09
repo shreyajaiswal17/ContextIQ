@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function ChatInput({ 
   onSendMessage, 
   isGenerating, 
+  generationPhase = "Retrieving relevant context...",
   disabled, 
   placeholder = "Ask any doubt, concept, or code implementation...",
   prefill = "",
@@ -64,14 +65,14 @@ export default function ChatInput({
             </div>
           ) : (
             <div className="text-[11px] font-mono text-slate-500">
-              General DSA Doubt Solving
+              DSA Knowledge Base
             </div>
           )}
 
           {isGenerating && (
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
-              Preparing response...
+              {generationPhase || "Retrieving relevant context..."}
             </div>
           )}
         </div>
@@ -97,13 +98,13 @@ export default function ChatInput({
             disabled={!input.trim() || isGenerating || disabled}
             className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-medium text-xs transition-all shadow-md shadow-blue-600/20 disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
           >
-            {isGenerating ? 'Thinking' : 'Send'}
+            {isGenerating ? 'Wait' : 'Send'}
           </button>
         </form>
 
         {/* Footer Hint */}
         <div className="flex items-center justify-between mt-2 px-1 text-[11px] font-mono text-slate-500">
-          <span>ContextIQ DSA Assistant</span>
+          <span>ContextIQ RAG Assistant</span>
           <span>
             <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700/80 text-slate-300 text-[10px]">Enter</kbd> to send &middot; <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700/80 text-slate-300 text-[10px]">Shift+Enter</kbd> newline
           </span>

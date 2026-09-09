@@ -36,10 +36,10 @@ function CodeBlock({ language, value }) {
   );
 }
 
-// Dedicated Topic Starter Hero Card
+// Dedicated Landing Starter Card
 function TopicStarterCard({ message, onSelectSuggestion }) {
-  const topicTitle = message.topicTitle || "Data Structures & Algorithms";
-  const topicDesc = message.topicDesc || "Ask any conceptual question, algorithm breakdown, edge case inquiry, or code implementation.";
+  const topicTitle = message.topicTitle || "Ask ContextIQ";
+  const topicDesc = message.topicDesc || "Ask a DSA concept, algorithm, complexity, or implementation question. ContextIQ retrieves relevant knowledge before generating the response.";
   const tags = message.tags || [];
   const suggestions = message.suggestions || [];
 
@@ -50,8 +50,6 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
         {/* Hero Card Container */}
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/70 border border-slate-800/90 shadow-xl backdrop-blur-sm">
           
-          
-
           {/* Title & Concept Overview */}
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
             {topicTitle}
@@ -74,25 +72,25 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
             </div>
           )}
 
-          {/* Common Questions Cards */}
+          {/* Try a Question Cards */}
           {suggestions.length > 0 && (
             <div className="space-y-2.5 pt-4 border-t border-slate-800/80">
               <div className="text-xs font-mono font-medium text-slate-400 uppercase tracking-wider">
-                Select a common question or ask your doubt below:
+                Try a question
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {suggestions.map((s, idx) => (
                   <button
                     key={idx}
                     onClick={() => onSelectSuggestion && onSelectSuggestion(s)}
                     className="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/50 text-left transition-all group flex flex-col justify-between shadow-xs hover:shadow-md"
                   >
-                    <span className="text-xs font-medium text-slate-200 group-hover:text-white leading-relaxed line-clamp-2">
+                    <span className="text-xs font-medium text-slate-200 group-hover:text-white leading-relaxed">
                       {s}
                     </span>
                     <span className="text-[11px] font-mono text-blue-400 mt-2.5 inline-flex items-center group-hover:translate-x-0.5 transition-transform">
-                      Ask question &rarr;
+                      Ask ContextIQ &rarr;
                     </span>
                   </button>
                 ))}
@@ -115,6 +113,12 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
   if (isStarter) {
     return <TopicStarterCard message={message} onSelectSuggestion={onSelectSuggestion} />;
   }
+
+  // Check if query was refined via multi-turn rewriting
+  const hasRefinedQuery = !isUser && 
+    Boolean(message.rewrittenQuestion) && 
+    Boolean(message.originalQuestion) && 
+    message.rewrittenQuestion.trim().toLowerCase() !== message.originalQuestion.trim().toLowerCase();
 
   return (
     <div className={`py-4 sm:py-5 px-4 sm:px-6 transition-colors ${
@@ -154,6 +158,21 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
             </div>
           ) : (
             <div className="text-sm leading-relaxed text-slate-200">
+              
+              {/* Optional Query Rewriting Visibility (Point 7) */}
+              {hasRefinedQuery && (
+                <details className="mb-3 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
+                  <summary className="hover:text-slate-400 transition-colors inline-flex items-center gap-1.5 py-0.5">
+                    <span>Search query refined</span>
+                  </summary>
+                  <div className="mt-1.5 p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/90 text-xs text-slate-400 space-y-1">
+                    <div><span className="text-slate-500 font-mono">Original:</span> "{message.originalQuestion}"</div>
+                    <div><span className="text-slate-500 font-mono">Retrieved as:</span> "{message.rewrittenQuestion}"</div>
+                  </div>
+                </details>
+              )}
+
+              {/* Main Markdown Response */}
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -214,7 +233,38 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                 {message.content}
               </ReactMarkdown>
 
-              {/* Follow-up Suggestions */}
+              {/* Retrieved Context Cards (Point 6) */}
+              {message.sources && message.sources.length > 0 && (
+                <div className="mt-4 pt-3.5 border-t border-slate-800/80">
+                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    Retrieved Context
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {message.sources.slice(0, 3).map((source, idx) => (
+                      <div 
+                        key={source.id || idx}
+                        className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex flex-col justify-between hover:border-slate-700 transition-colors"
+                      >
+                        <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
+                          <span className="text-slate-300 font-medium truncate">
+                            DSA Knowledge Base
+                          </span>
+                          {source.score != null && (
+                            <span className="text-cyan-400 font-mono text-[10px] shrink-0 ml-1">
+                              Score: {source.score.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-400 line-clamp-3 leading-relaxed font-sans">
+                          {source.text || "Context chunk matched for query grounding."}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Questions */}
               {message.suggestions && message.suggestions.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-slate-800/80">
                   <div className="text-[11px] font-mono text-slate-400 mb-2">
@@ -225,7 +275,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                       <button
                         key={idx}
                         onClick={() => onSelectSuggestion && onSelectSuggestion(suggestion)}
-                        className="text-xs text-left px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-all shadow-xs hover:border-blue-500/40"
+                        className="text-xs text-left px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-700/80 transition-all shadow-xs hover:border-blue-500/40"
                       >
                         {suggestion}
                       </button>
