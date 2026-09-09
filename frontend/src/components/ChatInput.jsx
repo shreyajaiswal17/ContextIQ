@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowUp, Loader2 } from 'lucide-react';
 
 export default function ChatInput({ 
   onSendMessage, 
@@ -18,7 +17,6 @@ export default function ChatInput({
     }
   }, [prefill]);
 
-  // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -44,14 +42,13 @@ export default function ChatInput({
   };
 
   return (
-    <div className="sticky bottom-0 w-full bg-slate-950/90 backdrop-blur border-t border-slate-800/80 pt-3 pb-4 px-4 sm:px-6">
+    <div className="sticky bottom-0 w-full bg-slate-950 border-t border-slate-800 pt-3 pb-4 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         
         {/* Status */}
         {isGenerating && (
-          <div className="flex items-center gap-2 mb-2 text-xs text-slate-400">
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-400" />
-            <span>Generating response...</span>
+          <div className="text-xs text-slate-400 mb-1.5 font-medium">
+            Generating response...
           </div>
         )}
 
@@ -74,14 +71,9 @@ export default function ChatInput({
           <button
             type="submit"
             disabled={!input.trim() || isGenerating || disabled}
-            className="h-8 w-8 rounded bg-slate-100 hover:bg-white active:scale-95 text-slate-900 font-medium flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
-            aria-label="Send"
+            className="px-3.5 py-1.5 rounded bg-slate-100 hover:bg-white active:scale-95 text-slate-900 font-medium text-xs transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
           >
-            {isGenerating ? (
-              <Loader2 className="w-4 h-4 animate-spin text-slate-900" />
-            ) : (
-              <ArrowUp className="w-4 h-4 text-slate-900" />
-            )}
+            {isGenerating ? 'Wait' : 'Send'}
           </button>
         </form>
 

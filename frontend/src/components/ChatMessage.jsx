@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { 
-  User, 
-  Terminal, 
-  Copy, 
-  Check
-} from 'lucide-react';
 
 // Code block with clean copy button
 function CodeBlock({ language, value }) {
@@ -19,26 +13,16 @@ function CodeBlock({ language, value }) {
   };
 
   return (
-    <div className="my-3 rounded-lg overflow-hidden border border-slate-800 bg-slate-950">
-      <div className="flex items-center justify-between px-3 py-1.5 bg-slate-900 border-b border-slate-800 text-xs text-slate-400">
+    <div className="my-3 rounded overflow-hidden border border-slate-800 bg-slate-950">
+      <div className="flex items-center justify-between px-3 py-1 bg-slate-900 border-b border-slate-800 text-xs text-slate-400">
         <span className="font-mono text-[11px] uppercase text-slate-400">
           {language || 'code'}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1 px-2 py-0.5 rounded text-[11px] text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="px-2 py-0.5 rounded text-[11px] text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
         >
-          {copied ? (
-            <>
-              <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-3 h-3" />
-              <span>Copy</span>
-            </>
-          )}
+          {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
 
@@ -56,15 +40,15 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
     <div className={`py-5 px-4 sm:px-6 ${isUser ? 'bg-transparent' : 'bg-slate-900/40 border-y border-slate-900'}`}>
       <div className="max-w-4xl mx-auto flex gap-3.5 items-start">
         
-        {/* Avatar */}
+        {/* Clean Typographic Text Avatar */}
         <div className="shrink-0 mt-0.5">
           {isUser ? (
-            <div className="w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
-              <User className="w-3.5 h-3.5" />
+            <div className="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 font-mono text-[10px] font-semibold">
+              U
             </div>
           ) : (
-            <div className="w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-cyan-400">
-              <Terminal className="w-3.5 h-3.5" />
+            <div className="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-cyan-400 font-mono text-[10px] font-semibold">
+              IQ
             </div>
           )}
         </div>
@@ -77,7 +61,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
             <span className="font-medium text-slate-300">
               {isUser ? 'You' : 'ContextIQ'}
             </span>
-            <span className="text-slate-600">•</span>
+            <span className="text-slate-600">/</span>
             <span className="text-slate-500">{message.timestamp || 'Just now'}</span>
           </div>
 
@@ -101,7 +85,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                         value={codeString}
                       />
                     ) : (
-                      <code className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-xs border border-slate-700/60" {...props}>
+                      <code className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-xs border border-slate-700" {...props}>
                         {children}
                       </code>
                     );
@@ -147,7 +131,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
 
               {/* Suggestions */}
               {message.suggestions && message.suggestions.length > 0 && (
-                <div className="mt-3 pt-2.5 border-t border-slate-800/60">
+                <div className="mt-3 pt-2.5 border-t border-slate-800">
                   <div className="text-[11px] text-slate-400 mb-1.5">
                     Suggested topics:
                   </div>

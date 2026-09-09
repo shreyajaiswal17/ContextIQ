@@ -4,9 +4,7 @@ import Sidebar from './components/Sidebar';
 import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 import HomePage from './components/HomePage';
-import { AlertCircle, RefreshCw } from 'lucide-react';
 
-// Strips all emojis and pictographs
 const stripEmojis = (str) => {
   if (!str || typeof str !== 'string') return str;
   return str.replace(/\p{Extended_Pictographic}/gu, '').replace(/\s{2,}/g, ' ').trim();
@@ -30,7 +28,6 @@ export default function App() {
 
   const [messages, setMessages] = useState(() => {
     try {
-      // Clear legacy cache that may contain emojis
       localStorage.removeItem('contextiq_chat_history');
       return [INITIAL_GREETING];
     } catch {
@@ -213,20 +210,17 @@ export default function App() {
           />
 
           {/* Chat Main Area */}
-          <main className="flex-1 flex flex-col min-w-0 md:ml-76">
+          <main className="flex-1 flex flex-col min-w-0 md:ml-72">
             
             {/* Global Error Banner */}
             {errorBanner && (
               <div className="mx-4 mt-3 p-2.5 rounded bg-red-950/40 border border-red-900 flex items-center justify-between text-xs text-red-300">
-                <div className="flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>{errorBanner}</span>
-                </div>
+                <span>{errorBanner}</span>
                 <button 
                   onClick={fetchHealth}
-                  className="px-2 py-0.5 rounded bg-red-900 hover:bg-red-800 text-white text-[11px] flex items-center gap-1"
+                  className="px-2 py-0.5 rounded bg-red-900 hover:bg-red-800 text-white text-[11px]"
                 >
-                  <RefreshCw className="w-3 h-3" /> Retry
+                  Retry
                 </button>
               </div>
             )}

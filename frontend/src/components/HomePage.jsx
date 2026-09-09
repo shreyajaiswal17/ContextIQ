@@ -1,16 +1,4 @@
 import React from 'react';
-import { 
-  ArrowRight, 
-  MessageSquare, 
-  Code2, 
-  Search, 
-  Layers, 
-  Zap, 
-  ShieldCheck, 
-  FileText,
-  Hash,
-  Compass
-} from 'lucide-react';
 
 const FEATURED_TOPICS = [
   {
@@ -50,12 +38,11 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
     <div className="flex-1 overflow-y-auto bg-slate-950 text-slate-100">
       
       {/* Hero Section */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-20 max-w-5xl mx-auto text-center">
+      <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-20 max-w-5xl mx-auto text-center">
         
-        {/* Subtle Top Capsule */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300 mb-8">
-          <span className="w-2 h-2 rounded-full bg-cyan-400" />
-          <span>Knowledge & Algorithmic Query Engine</span>
+        {/* Top Capsule */}
+        <div className="inline-block px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300 mb-8 font-medium">
+          Knowledge & Algorithmic Query Engine
         </div>
 
         {/* Main Title */}
@@ -73,11 +60,9 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={onStartChat}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-100 hover:bg-white text-slate-950 font-medium text-sm transition-all shadow-sm active:scale-95"
+            className="px-6 py-2.5 rounded-lg bg-slate-100 hover:bg-white text-slate-950 font-medium text-sm transition-colors shadow-sm"
           >
-            <MessageSquare className="w-4 h-4" />
-            <span>Open Assistant</span>
-            <ArrowRight className="w-4 h-4" />
+            Open Assistant
           </button>
 
           <button
@@ -85,10 +70,9 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
               const el = document.getElementById('featured-topics');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-sm font-medium transition-all"
+            className="px-6 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-sm font-medium transition-colors"
           >
-            <Compass className="w-4 h-4 text-slate-400" />
-            <span>Explore Topics</span>
+            Explore Topics
           </button>
         </div>
 
@@ -98,11 +82,8 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
       <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto border-t border-slate-900">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           
-          <div className="p-6 rounded-xl bg-slate-900/50 border border-slate-800/80">
-            <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-cyan-400 mb-4">
-              <Search className="w-4 h-4" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1.5">
+          <div className="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
+            <h3 className="text-sm font-semibold text-white mb-2">
               Semantic Vector Retrieval
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -110,11 +91,8 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-slate-900/50 border border-slate-800/80">
-            <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-indigo-400 mb-4">
-              <Layers className="w-4 h-4" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1.5">
+          <div className="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
+            <h3 className="text-sm font-semibold text-white mb-2">
               Multi-Turn Context Rewriting
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -122,11 +100,8 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-slate-900/50 border border-slate-800/80">
-            <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 mb-4">
-              <Code2 className="w-4 h-4" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1.5">
+          <div className="p-6 rounded-xl bg-slate-900/40 border border-slate-800">
+            <h3 className="text-sm font-semibold text-white mb-2">
               Structured Code & Complexity
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -152,10 +127,9 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
 
           <button
             onClick={onStartChat}
-            className="text-xs text-slate-400 hover:text-white flex items-center gap-1 font-medium transition-colors"
+            className="text-xs text-slate-400 hover:text-white font-medium transition-colors"
           >
-            <span>View All Topics</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            View All Topics &rarr;
           </button>
         </div>
 
@@ -164,23 +138,19 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             <button
               key={index}
               onClick={() => onSelectTopic(topic)}
-              className="p-5 rounded-xl bg-slate-900/40 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all group flex flex-col justify-between"
+              className="p-5 rounded-xl bg-slate-900/30 hover:bg-slate-900 border border-slate-800/80 hover:border-slate-700 text-left transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Hash className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
-                  <h4 className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
-                    {topic.title}
-                  </h4>
-                </div>
+                <h4 className="text-sm font-semibold text-slate-200 mb-2">
+                  {topic.title}
+                </h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   {topic.desc}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500 group-hover:text-cyan-400 transition-colors">
-                <span>Start Discussion</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              <div className="mt-4 pt-3 border-t border-slate-800/60 text-xs text-slate-400 font-medium">
+                Start Discussion &rarr;
               </div>
             </button>
           ))}
@@ -190,11 +160,7 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
 
       {/* Footer */}
       <footer className="px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-900 text-center text-xs text-slate-500">
-        <div className="flex items-center justify-center gap-3">
-          <span>ContextIQ</span>
-          <span>/</span>
-          <span>Knowledge & Reasoning Assistant</span>
-        </div>
+        ContextIQ &middot; Knowledge & Reasoning Assistant
       </footer>
 
     </div>
