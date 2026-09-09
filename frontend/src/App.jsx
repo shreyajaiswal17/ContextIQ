@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
+import HomePage from './components/HomePage';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 
 const INITIAL_GREETING = {
@@ -19,6 +20,8 @@ const INITIAL_GREETING = {
 };
 
 export default function App() {
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'chat'
+
   const [messages, setMessages] = useState(() => {
     try {
       const saved = localStorage.getItem('contextiq_chat_history');
@@ -45,8 +48,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isGenerating]);
+    if (currentView === 'chat') {
+      scrollToBottom();
+    }
+  }, [messages, isGenerating, currentView]);
 
   useEffect(() => {
     try {
@@ -98,6 +103,7 @@ export default function App() {
 
     setMessages([topicGreeting]);
     setInputPlaceholder(`Ask me anything about ${topic.title} --> `);
+    setCurrentView('chat');
   };
 
   const handleSendMessage = async (text) => {
@@ -168,6 +174,7 @@ export default function App() {
     setMessages([INITIAL_GREETING]);
     setInputPlaceholder("Ask me anything --> ");
     localStorage.removeItem('contextiq_chat_history');
+    setCurrentView('chat');
   };
 
   return (
@@ -179,62 +186,73 @@ export default function App() {
         onNewChat={handleNewChat}
         isGenerating={isGenerating}
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+        currentView={currentView}
+        onNavigate={setCurrentView}
       />
 
-      {/* Main Layout */}
-      <div className="flex-1 flex overflow-hidden">
-        
-        {/* Sidebar */}
-        <Sidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          onSelectTopic={handleSelectTopic}
-          messageCount={messages.length}
+      {/* Main View Router */}
+      {currentView === 'home' ? (
+        <HomePage 
+          onStartChat={() => setCurrentView('chat')}
+          onSelectTopic={(topic) => {
+            handleSelectTopic(topic);
+          }}
         />
-
-        {/* Chat Main Area */}
-        <main className="flex-1 flex flex-col min-w-0 md:ml-76">
+      ) : (
+        <div className="flex-1 flex overflow-hidden">
           
-          {/* Global Error Banner */}
-          {errorBanner && (
-            <div className="mx-4 mt-3 p-2.5 rounded bg-red-950/40 border border-red-900 flex items-center justify-between text-xs text-red-300">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                <span>{errorBanner}</span>
-              </div>
-              <button 
-                onClick={fetchHealth}
-                className="px-2 py-0.5 rounded bg-red-900 hover:bg-red-800 text-white text-[11px] flex items-center gap-1"
-              >
-                <RefreshCw className="w-3 h-3" /> Retry
-              </button>
-            </div>
-          )}
-
-          {/* Conversation Stream */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="divide-y divide-slate-900 pb-4">
-              {messages.map((message) => (
-                <ChatMessage 
-                  key={message.id} 
-                  message={message} 
-                  onSelectSuggestion={handleSendMessage}
-                />
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-          </div>
-
-          {/* Chat Input */}
-          <ChatInput
-            onSendMessage={handleSendMessage}
-            isGenerating={isGenerating}
-            disabled={systemStatus?.status === 'error'}
-            placeholder={inputPlaceholder}
+          {/* Sidebar */}
+          <Sidebar
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+            onSelectTopic={handleSelectTopic}
+            messageCount={messages.length}
           />
 
-        </main>
-      </div>
+          {/* Chat Main Area */}
+          <main className="flex-1 flex flex-col min-w-0 md:ml-76">
+            
+            {/* Global Error Banner */}
+            {errorBanner && (
+              <div className="mx-4 mt-3 p-2.5 rounded bg-red-950/40 border border-red-900 flex items-center justify-between text-xs text-red-300">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                  <span>{errorBanner}</span>
+                </div>
+                <button 
+                  onClick={fetchHealth}
+                  className="px-2 py-0.5 rounded bg-red-900 hover:bg-red-800 text-white text-[11px] flex items-center gap-1"
+                >
+                  <RefreshCw className="w-3 h-3" /> Retry
+                </button>
+              </div>
+            )}
+
+            {/* Conversation Stream */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="divide-y divide-slate-900 pb-4">
+                {messages.map((message) => (
+                  <ChatMessage 
+                    key={message.id} 
+                    message={message} 
+                    onSelectSuggestion={handleSendMessage}
+                  />
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
+
+            {/* Chat Input */}
+            <ChatInput
+              onSendMessage={handleSendMessage}
+              isGenerating={isGenerating}
+              disabled={systemStatus?.status === 'error'}
+              placeholder={inputPlaceholder}
+            />
+
+          </main>
+        </div>
+      )}
 
     </div>
   );
