@@ -69,7 +69,15 @@ cd ../frontend && npm install
 
 ### 2. Configure Environment Variables in backend
 
-### 3. Run Locally
+### 3. First-Time Setup: Index the Knowledge Base (Run Once)
+If you are setting up a new/empty Pinecone index, populate it by running:
+```bash
+cd backend
+npm run index-doc
+
+```
+
+### 4. Run Locally
 
 Open two terminal tabs:
 
@@ -85,5 +93,13 @@ npm run dev
 - **Frontend Web App**: [http://localhost:5173](http://localhost:5173)
 - **Backend API**: [http://localhost:5000](http://localhost:5000)
 
-*(To chat directly in your terminal, run `node index.js` inside `backend/`)*
+*(To chat directly in your terminal, run `node query.js` or `npm run query` inside `backend/`)*
 
+---
+
+### Backend Scripts Reference
+
+Inside `backend/`:
+- `npm run dev` / `npm start` — Starts the Express API server 
+- `npm run query` — Runs the terminal CLI chat assistant 
+- `npm run index-doc` — Chunks and indexes `Dsa.pdf` into Pinecone 

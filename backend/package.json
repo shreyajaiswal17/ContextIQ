@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "cli": "node index.js"
+    "query": "node query.js",
+    "cli": "node query.js",
+    "index-doc": "node index.js"
   },
   "dependencies": {
     "@google/genai": "1.0.0",

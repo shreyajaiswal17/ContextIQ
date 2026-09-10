@@ -225,7 +225,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                       >
                         <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
                           <span className="text-slate-300 font-medium truncate">
-                            DSA Knowledge Base
+                            {source.pageNumber ? `DSA Base · Pg ${source.pageNumber}` : "DSA Knowledge Base"}
                           </span>
                           {source.score != null && (
                             <span className="text-cyan-400 font-mono text-[10px] shrink-0 ml-1">

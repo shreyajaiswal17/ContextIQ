@@ -24,6 +24,25 @@ const pinecone = new Pinecone({
 const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX_NAME);
 
 /**
+ * Helper to call Gemini generateContent with auto-retry for temporary 503 high-demand spikes.
+ */
+async function generateWithRetry(params, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await ai.models.generateContent(params);
+    } catch (err) {
+      const is503 = err.message?.includes("503") || err.message?.includes("UNAVAILABLE");
+      if (is503 && attempt < retries) {
+        console.log(`[Gemini 503 High-Demand Spike] Retrying in 1.5s (attempt ${attempt + 1}/${retries})...`);
+        await new Promise((r) => setTimeout(r, 1500));
+        continue;
+      }
+      throw err;
+    }
+  }
+}
+
+/**
  * Rewrites a follow-up query into a standalone query using conversation history.
  */
 async function transformQuery(question, history = []) {
@@ -40,7 +59,7 @@ async function transformQuery(question, history = []) {
   ];
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await generateWithRetry({
       model: "gemini-3.5-flash",
       contents: queryHistory,
       config: {
@@ -125,18 +144,21 @@ app.post("/api/chat", async (req, res) => {
       includeMetadata: true,
     });
 
-    const matches = searchResults.matches || [];
+    const matches = (searchResults.matches || []).filter(
+      (match) => match.metadata?.text
+    );
 
     // 4. Assemble context from retrieved chunks
     const context = matches
-      .map((match) => match.metadata?.text)
-      .filter(Boolean)
+      .map((match) => match.metadata.text)
       .join("\n\n");
 
     const sources = matches.map((match, idx) => ({
       id: match.id || `chunk-${idx + 1}`,
       score: match.score ? Number(match.score.toFixed(4)) : null,
-      text: match.metadata?.text || "",
+      text: match.metadata.text,
+      source: match.metadata.source || "./Dsa.pdf",
+      pageNumber: match.metadata.pageNumber ?? null,
       metadata: match.metadata || {},
     }));
 
@@ -150,7 +172,7 @@ app.post("/api/chat", async (req, res) => {
     ];
 
     // 6. Generate final answer with Gemini
-    const response = await ai.models.generateContent({
+    const response = await generateWithRetry({
       model: "gemini-3.5-flash",
       contents: promptHistory,
       config: {
