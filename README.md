@@ -67,28 +67,17 @@ cd backend && npm install
 cd ../frontend && npm install
 ```
 
-### 2. Configure Environment Variables
-
-Create a `.env` file inside `backend/`:
-
-```env
-GOOGLE_API_KEY=your_google_api_key_here
-PINECONE_API_KEY=your_pinecone_api_key_here
-PINECONE_INDEX_NAME=genai
-PINECONE_ENVIRONMENT=us-east-1
-PORT=5000
-```
+### 2. Configure Environment Variables in backend
 
 ### 3. Run Locally
 
 Open two terminal tabs:
 
 ```bash
-# Terminal 1: Start Backend API (runs on port 5000)
+
 cd backend
 npm run dev
 
-# Terminal 2: Start Frontend App (runs on port 5173)
 cd frontend
 npm run dev
 ```
