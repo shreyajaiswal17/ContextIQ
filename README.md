@@ -38,32 +38,6 @@ Response Delivered (Answer + Source Attribution + Rewritten Query transparency)
 
 ---
 
-## Project Structure
-
-```text
-RAG/
-├── Dsa.pdf                 # Curated DSA reference document (knowledge source)
-├── index.js                # Interactive CLI chat script (npm start)
-├── server.js               # Express API backend server (npm run server)
-├── .env.example            # Template for required environment variables
-├── package.json            # Root package configuration & npm scripts
-├── frontend/               # React + Vite web application
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── ChatInput.jsx     # Input dock with topic pills and action buttons
-│   │   │   ├── ChatMessage.jsx   # Message renderer with markdown, copy, & source drawer
-│   │   │   ├── HomePage.jsx      # Landing view with category cards & quick starters
-│   │   │   ├── Navbar.jsx        # Navigation bar & system status indicator
-│   │   │   └── Sidebar.jsx       # Topics sidebar for focused DSA exploration
-│   │   ├── App.jsx               # Main state controller, routing, & API integration
-│   │   ├── index.css             # Tailwind CSS styling and theme setup
-│   │   └── main.jsx              # React app mount entry point
-│   ├── vite.config.js      # Vite config with /api reverse proxy to port 5000
-│   └── package.json        # Frontend dependencies & scripts
-└── README.md
-```
-
----
 
 ## Key Features
 
