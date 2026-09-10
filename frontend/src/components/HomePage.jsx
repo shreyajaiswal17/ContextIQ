@@ -177,10 +177,10 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
       </section>
 
       {/* 4. QUICK ASK SECTION */}
-      <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-6xl mx-auto">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-5xl mx-auto">
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-900/80 to-slate-950/80 border border-slate-800/90 shadow-xl">
           
-          <div className="max-w-2xl">
+          <div className="max-w-xl">
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1.5">
               Have a DSA question?
             </h2>

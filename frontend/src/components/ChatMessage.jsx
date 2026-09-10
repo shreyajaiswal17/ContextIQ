@@ -39,7 +39,7 @@ function CodeBlock({ language, value }) {
 // Dedicated Landing Starter Card
 function TopicStarterCard({ message, onSelectSuggestion }) {
   const topicTitle = message.topicTitle || "Ask ContextIQ";
-  const topicDesc = message.topicDesc || "Ask a DSA concept, algorithm, complexity, or implementation question. ContextIQ retrieves relevant knowledge before generating the response.";
+  const topicDesc = message.topicDesc || "Ask a DSA concept, algorithm, complexity, or implementation question.";
   const tags = message.tags || [];
   const suggestions = message.suggestions || [];
 

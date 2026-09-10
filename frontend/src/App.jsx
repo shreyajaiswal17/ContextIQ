@@ -15,7 +15,7 @@ const INITIAL_GREETING = {
   role: 'model',
   isStarter: true,
   topicTitle: "Ask ContextIQ",
-  topicDesc: "Ask a DSA concept, algorithm, complexity, or implementation question. ContextIQ retrieves relevant knowledge before generating the response.",
+  topicDesc: "Ask a DSA concept, algorithm, complexity, or implementation question.",
   tags: ["Arrays", "Trees", "Graphs", "DynamicProgramming", "Complexity"],
   timestamp: 'Ready',
   suggestions: [
