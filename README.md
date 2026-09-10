@@ -16,6 +16,7 @@ ContextIQ is a RAG-powered (Retrieval-Augmented Generation) DSA knowledge assist
 
 ---
 
+
 ## Architecture & RAG Pipeline
 
 ```
@@ -38,22 +39,20 @@ Response Delivered (Answer + Source Attribution + Rewritten Query transparency)
 
 ---
 
-
 ## Key Features
 
-- **Modern Glassmorphic Dark UI**: Custom-built with React 19, Tailwind CSS v4, and Lucide icons.
+- **Modern Glassmorphic Dark UI**: Built with React 19, Tailwind CSS v4, and Lucide icons.
 - **Context-Grounded Retrieval**: High-precision vector search over indexed DSA chunks with similarity score badges.
 - **Source Chunk Inspector**: View the exact excerpts from `Dsa.pdf` used to ground each response.
 - **Transparent Query Rewriting**: Inspect how ContextIQ reformulates follow-up questions for standalone retrieval.
 - **Rich Code Blocks**: Clean syntax formatting for C++, Python, and Java algorithms with one-click copy.
 - **Dual Interfaces**:
-  - **Web Application**: Rich visual chat UI with topic filters and inspectable sources.
+  - **Web Application**: Visual chat UI with topic filters, breadcrumbs, and inspectable sources.
   - **Terminal CLI**: Fast, distraction-free command-line chat for quick reference.
 
 ---
 
-
-## Setup & Installation
+## Setup & Local Development
 
 ### 1. Clone & Install Dependencies
 
@@ -61,16 +60,16 @@ Response Delivered (Answer + Source Attribution + Rewritten Query transparency)
 git clone <your-repository-url>
 cd ContextIQ
 
-# Install root dependencies (Express, Gemini SDK, Pinecone)
-npm install
+# Install backend dependencies
+cd backend && npm install
 
-# Install frontend dependencies (React, Vite, Tailwind CSS)
-npm install --prefix frontend
+# Install frontend dependencies
+cd ../frontend && npm install
 ```
 
 ### 2. Configure Environment Variables
 
-Create a `.env` file in the root directory (or copy from `.env.example`):
+Create a `.env` file inside `backend/`:
 
 ```env
 GOOGLE_API_KEY=your_google_api_key_here
@@ -80,35 +79,22 @@ PINECONE_ENVIRONMENT=us-east-1
 PORT=5000
 ```
 
----
+### 3. Run Locally
 
-## Running the Application
-
-### Option A: Web Application (Recommended)
-
-Run both the Express backend and React frontend concurrently:
+Open two terminal tabs:
 
 ```bash
+# Terminal 1: Start Backend API (runs on port 5000)
+cd backend
+npm run dev
+
+# Terminal 2: Start Frontend App (runs on port 5173)
+cd frontend
 npm run dev
 ```
 
-- **Frontend App**: [http://localhost:5173](http://localhost:5173)
+- **Frontend Web App**: [http://localhost:5173](http://localhost:5173)
 - **Backend API**: [http://localhost:5000](http://localhost:5000)
 
-Alternatively, run each service separately in dedicated terminals:
-```bash
-# Terminal 1: Start backend server
-npm run server
+*(To chat directly in your terminal, run `node index.js` inside `backend/`)*
 
-# Terminal 2: Start frontend dev server
-npm run frontend
-```
-
-### Option B: Terminal CLI
-
-To chat with ContextIQ directly in your terminal without opening a browser:
-
-```bash
-npm start
-```
-Type your DSA questions directly into the prompt. Type `exit` or `quit` to end the session.

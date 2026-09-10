@@ -14,7 +14,6 @@ export default function Navbar({
     <header className="sticky top-0 z-30 w-full bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         
-        {/* Left: Branding & Mobile Menu Toggle */}
         <div className="flex items-center gap-3 sm:gap-4">
           {currentView === 'chat' && (
             <button
@@ -35,7 +34,6 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* Center: Segmented Navigation Switcher */}
         <nav className="flex items-center bg-slate-900/90 border border-slate-800/90 rounded-xl p-1 shadow-inner">
           <button
             onClick={() => onNavigate('home')}
@@ -60,9 +58,7 @@ export default function Navbar({
           </button>
         </nav>
 
-        {/* Right: Actions */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* New Chat Button */}
           {currentView === 'chat' && (
             <button
               onClick={onNewChat}
@@ -81,7 +77,6 @@ export default function Navbar({
               Ask ContextIQ
             </button>
           )}
-
         </div>
 
       </div>

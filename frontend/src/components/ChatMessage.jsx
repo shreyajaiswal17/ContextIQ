@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-// Code block with clean copy button and IDE-like top bar
 function CodeBlock({ language, value }) {
   const [copied, setCopied] = useState(false);
 
@@ -36,7 +35,6 @@ function CodeBlock({ language, value }) {
   );
 }
 
-// Dedicated Landing Starter Card
 function TopicStarterCard({ message, onSelectSuggestion }) {
   const topicTitle = message.topicTitle || "Ask ContextIQ";
   const topicDesc = message.topicDesc || "Ask a DSA concept, algorithm, complexity, or implementation question.";
@@ -46,11 +44,7 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
   return (
     <div className="py-6 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        
-        {/* Hero Card Container */}
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/70 border border-slate-800/90 shadow-xl backdrop-blur-sm">
-          
-          {/* Title & Concept Overview */}
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
             {topicTitle}
           </h2>
@@ -58,7 +52,6 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
             {topicDesc}
           </p>
 
-          {/* Topic Tags */}
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-6">
               {tags.map((tag, i) => (
@@ -72,7 +65,6 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
             </div>
           )}
 
-          {/* Try a Question Cards */}
           {suggestions.length > 0 && (
             <div className="space-y-2.5 pt-4 border-t border-slate-800/80">
               <div className="text-xs font-mono font-medium text-slate-400 uppercase tracking-wider">
@@ -84,7 +76,7 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
                   <button
                     key={idx}
                     onClick={() => onSelectSuggestion && onSelectSuggestion(s)}
-                    className="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-blue-500/50 text-left transition-all group flex flex-col justify-between shadow-xs hover:shadow-md"
+                    className="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-855 border border-slate-800 hover:border-blue-500/50 text-left transition-all group flex flex-col justify-between shadow-xs hover:shadow-md"
                   >
                     <span className="text-xs font-medium text-slate-200 group-hover:text-white leading-relaxed">
                       {s}
@@ -97,9 +89,7 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
               </div>
             </div>
           )}
-
         </div>
-
       </div>
     </div>
   );
@@ -109,12 +99,10 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
   const isUser = message.role === 'user';
   const isStarter = message.isStarter || message.id === 'initial-greeting' || message.id?.startsWith('topic-greeting-');
 
-  // If this message is an initial or topic greeting, render the rich Starter Hero Card
   if (isStarter) {
     return <TopicStarterCard message={message} onSelectSuggestion={onSelectSuggestion} />;
   }
 
-  // Check if query was refined via multi-turn rewriting
   const hasRefinedQuery = !isUser && 
     Boolean(message.rewrittenQuestion) && 
     Boolean(message.originalQuestion) && 
@@ -125,8 +113,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
       isUser ? 'bg-transparent' : 'bg-slate-900/30 border-y border-slate-900/60'
     }`}>
       <div className="max-w-4xl mx-auto flex gap-3.5 items-start">
-        
-        {/* Avatar */}
         <div className="shrink-0 mt-0.5">
           {isUser ? (
             <div className="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200 font-mono text-[10px] font-semibold shadow-xs">
@@ -139,10 +125,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
           )}
         </div>
 
-        {/* Message Card Body */}
         <div className="flex-1 min-w-0 space-y-2">
-          
-          {/* Header Bar */}
           <div className="flex items-center gap-2 text-xs">
             <span className="font-semibold text-slate-200">
               {isUser ? 'You' : 'ContextIQ Assistant'}
@@ -151,15 +134,12 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
             <span className="text-slate-500 font-mono text-[11px]">{message.timestamp || 'Just now'}</span>
           </div>
 
-          {/* Content */}
           {isUser ? (
             <div className="text-sm text-slate-100 whitespace-pre-wrap leading-relaxed bg-slate-900/70 border border-slate-800 rounded-xl p-3.5 sm:p-4 inline-block max-w-3xl shadow-xs">
               {message.content}
             </div>
           ) : (
             <div className="text-sm leading-relaxed text-slate-200">
-              
-              {/* Optional Query Rewriting Visibility (Point 7) */}
               {hasRefinedQuery && (
                 <details className="mb-3 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
                   <summary className="hover:text-slate-400 transition-colors inline-flex items-center gap-1.5 py-0.5">
@@ -172,7 +152,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                 </details>
               )}
 
-              {/* Main Markdown Response */}
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -233,7 +212,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                 {message.content}
               </ReactMarkdown>
 
-              {/* Retrieved Context Cards (Point 6) */}
               {message.sources && message.sources.length > 0 && (
                 <div className="mt-4 pt-3.5 border-t border-slate-800/80">
                   <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">
@@ -264,7 +242,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                 </div>
               )}
 
-              {/* Related Questions */}
               {message.suggestions && message.suggestions.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-slate-800/80">
                   <div className="text-[11px] font-mono text-slate-400 mb-2">

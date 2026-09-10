@@ -13,7 +13,6 @@
   }
 }
 
-/* Sleek Dark Scrollbar to replace ugly Windows scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -32,13 +31,11 @@
   background: #334155;
 }
 
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: #1e293b transparent;
 }
 
-/* Subtle dev-tool grid pattern */
 .bg-grid-subtle {
   background-size: 32px 32px;
   background-image: 

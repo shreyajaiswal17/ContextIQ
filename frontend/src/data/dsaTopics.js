@@ -6,7 +6,6 @@ export const DSA_CATEGORIES = [
 ];
 
 export const DSA_TOPICS = [
-  // Data Structures
   {
     id: "arrays-hashing",
     title: "Arrays & Hashing",
@@ -67,8 +66,6 @@ export const DSA_TOPICS = [
       "How do you find the Kth largest element using a min-heap?"
     ]
   },
-
-  // Algorithms & Searching
   {
     id: "binary-search",
     title: "Binary Search",
@@ -105,8 +102,6 @@ export const DSA_TOPICS = [
       "How do you generate all permutations of an array using recursion?"
     ]
   },
-
-  // Trees & Graphs
   {
     id: "trees",
     title: "Trees",
@@ -131,8 +126,6 @@ export const DSA_TOPICS = [
       "How does topological sort work using Kahn's algorithm?"
     ]
   },
-
-  // Advanced Concepts
   {
     id: "dynamic-programming",
     title: "Dynamic Programming",

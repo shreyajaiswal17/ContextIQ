@@ -1,18 +1,13 @@
 {
-  "name": "rag",
+  "name": "contextiq-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "type": "module",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "node server.js",
-    "frontend": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "start": "node server.js",
+    "dev": "node server.js",
+    "cli": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@google/genai": "1.0.0",
     "@langchain/community": "^1.1.29",
@@ -26,8 +21,5 @@
     "express": "^5.2.1",
     "pdf-parse": "^1.1.1",
     "readline-sync": "^1.4.10"
-  },
-  "devDependencies": {
-    "concurrently": "^10.0.5"
   }
 }

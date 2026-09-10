@@ -52,34 +52,25 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
       ref={scrollContainerRef}
       className="flex-1 overflow-y-auto bg-slate-950 text-slate-100 bg-grid-subtle scroll-smooth"
     >
-      
-      {/* 2. HERO SECTION */}
       <section className="relative px-4 sm:px-6 lg:px-8 pt-20 pb-20 max-w-4xl mx-auto text-center">
-        
-        {/* Subtle Ambient Radial Glow */}
         <div className="absolute top-12 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-        {/* Small Badge */}
         <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 mb-6 shadow-inner tracking-wide">
           RAG-POWERED DSA ASSISTANT
         </div>
 
-        {/* Main Heading */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
           Master DSA with ContextIQ.
         </h1>
 
-        {/* Secondary Heading */}
         <p className="text-lg sm:text-xl md:text-2xl font-medium text-slate-300 mb-5">
           Ask questions. Understand concepts. Learn from context.
         </p>
 
-        {/* Supporting Description */}
         <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
           ContextIQ retrieves relevant concepts from a DSA knowledge base and uses Gemini to generate focused, context-aware responses.
         </p>
 
-        {/* Primary CTA */}
         <div className="flex items-center justify-center">
           <button
             onClick={onStartChat}
@@ -89,13 +80,9 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             <span>&rarr;</span>
           </button>
         </div>
-
       </section>
 
-      {/* 3. EXPLORE DSA TOPICS */}
       <section className="px-4 sm:px-6 lg:px-8 py-16 max-w-6xl mx-auto border-t border-slate-900/80">
-        
-        {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
             <h2 className="text-2xl font-bold text-white tracking-tight">
@@ -114,7 +101,6 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
           </button>
         </div>
 
-        {/* Category Pills */}
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map((cat) => (
             <button
@@ -131,7 +117,6 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
           ))}
         </div>
 
-        {/* Topics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredTopics.map((topic) => (
             <button
@@ -154,7 +139,6 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
               </div>
 
               <div>
-                {/* Relevant Tags */}
                 {topic.tags && topic.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/60 mb-3">
                     {topic.tags.map((t, idx) => (
@@ -173,13 +157,10 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             </button>
           ))}
         </div>
-
       </section>
 
-      {/* 4. QUICK ASK SECTION */}
       <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-5xl mx-auto">
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-900/80 to-slate-950/80 border border-slate-800/90 shadow-xl">
-          
           <div className="max-w-xl">
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1.5">
               Have a DSA question?
@@ -205,13 +186,10 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
               <span>&rarr;</span>
             </button>
           </form>
-
         </div>
       </section>
 
-      {/* 5. HOW CONTEXTIQ WORKS / RAG ARCHITECTURE */}
       <section className="px-4 sm:px-6 lg:px-8 py-16 max-w-6xl mx-auto border-t border-slate-900/80">
-        
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="text-xs font-mono uppercase tracking-wider text-blue-400 mb-2 font-medium">
             ARCHITECTURE
@@ -224,7 +202,6 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
           </p>
         </div>
 
-        {/* Pipeline Strip */}
         <div className="mb-10 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 overflow-x-auto">
           <div className="flex items-center justify-between min-w-[640px] text-xs font-mono text-slate-400 px-3">
             <span className="text-slate-200 font-medium">Question</span>
@@ -239,7 +216,6 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
           </div>
         </div>
 
-        {/* 4 Steps Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {PIPELINE_STEPS.map((step) => (
             <div 
@@ -260,16 +236,13 @@ export default function HomePage({ onStartChat, onSelectTopic }) {
             </div>
           ))}
         </div>
-
       </section>
 
-      {/* 6. FOOTER */}
       <footer className="px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-900 text-center">
         <div className="text-xs font-mono text-slate-400">
           ContextIQ &middot; RAG-Powered DSA Knowledge Assistant
         </div>
       </footer>
-
     </div>
   );
 }

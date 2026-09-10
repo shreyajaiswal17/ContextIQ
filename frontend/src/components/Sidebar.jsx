@@ -24,7 +24,6 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Mobile Backdrop */}
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black/70 backdrop-blur-xs z-40 md:hidden"
@@ -32,7 +31,6 @@ export default function Sidebar({
         />
       )}
 
-      {/* Sidebar Drawer */}
       <aside 
         className={`
           fixed top-16 bottom-0 left-0 z-40 w-72 bg-slate-950 md:bg-slate-900/90 
@@ -42,8 +40,6 @@ export default function Sidebar({
         `}
       >
         <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5">
-          
-          {/* Header */}
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-800/80">
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
@@ -62,7 +58,6 @@ export default function Sidebar({
             </button>
           </div>
 
-          {/* Quick Search */}
           <div className="relative">
             <input
               type="text"
@@ -81,10 +76,8 @@ export default function Sidebar({
             )}
           </div>
 
-          {/* Categorized Topic List */}
           <div className="space-y-4">
             {isSearching ? (
-              // Flat search results
               <div className="space-y-1">
                 <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 px-2 mb-1.5">
                   Matches ({filteredTopics.length})
@@ -116,7 +109,6 @@ export default function Sidebar({
                 )}
               </div>
             ) : (
-              // Grouped by category
               DSA_CATEGORIES.map((category) => {
                 const categoryTopics = DSA_TOPICS.filter((t) => t.category === category);
                 return (
@@ -155,10 +147,8 @@ export default function Sidebar({
               })
             )}
           </div>
-
         </div>
 
-        {/* Footer info */}
         <div className="p-3 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-500 flex items-center justify-between font-mono">
           <span>Knowledge Base</span>
           <span>{messageCount} msg{messageCount === 1 ? '' : 's'}</span>

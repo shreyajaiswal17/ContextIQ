@@ -48,7 +48,6 @@ export default function ChatInput({
     <div className="sticky bottom-0 w-full bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent pt-3 pb-4 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         
-        {/* Active Context / Generating Indicator */}
         <div className="flex items-center justify-between mb-2 px-1 text-xs">
           {activeTopic ? (
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/60 border border-blue-800/40 text-[11px] font-mono text-blue-300">
@@ -77,7 +76,6 @@ export default function ChatInput({
           )}
         </div>
 
-        {/* Form Container */}
         <form 
           onSubmit={handleSubmit}
           className="relative flex items-end gap-2.5 p-2 sm:p-2.5 rounded-2xl bg-slate-900/90 border border-slate-700/70 hover:border-slate-600/80 focus-within:border-blue-500/70 focus-within:ring-2 focus-within:ring-blue-500/20 shadow-xl transition-all"
@@ -102,7 +100,6 @@ export default function ChatInput({
           </button>
         </form>
 
-        {/* Footer Hint */}
         <div className="flex items-center justify-between mt-2 px-1 text-[11px] font-mono text-slate-500">
           <span>ContextIQ RAG Assistant</span>
           <span>

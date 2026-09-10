@@ -10,6 +10,8 @@ const stripEmojis = (str) => {
   return str.replace(/\p{Extended_Pictographic}/gu, '').replace(/\s{2,}/g, ' ').trim();
 };
 
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+
 const INITIAL_GREETING = {
   id: 'initial-greeting',
   role: 'model',
@@ -27,7 +29,7 @@ const INITIAL_GREETING = {
 };
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'chat'
+  const [currentView, setCurrentView] = useState('home');
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const [messages, setMessages] = useState(() => {
@@ -60,7 +62,7 @@ export default function App() {
 
   const fetchHealth = async () => {
     try {
-      const res = await fetch('/api/health');
+      const res = await fetch(`${API_BASE}/api/health`);
       if (res.ok) {
         const data = await res.json();
         setSystemStatus(data);
@@ -133,7 +135,7 @@ export default function App() {
     try {
       const historyPayload = buildGeminiHistory();
 
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -190,8 +192,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-600/30 selection:text-blue-200">
-      
-      {/* Top Navigation Bar */}
       <Navbar
         systemStatus={systemStatus}
         onNewChat={handleNewChat}
@@ -201,7 +201,6 @@ export default function App() {
         onNavigate={setCurrentView}
       />
 
-      {/* Main View Router */}
       {currentView === 'home' ? (
         <HomePage 
           onStartChat={() => setCurrentView('chat')}
@@ -209,8 +208,6 @@ export default function App() {
         />
       ) : (
         <div className="flex-1 flex overflow-hidden">
-          
-          {/* Left Sidebar */}
           <Sidebar
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
@@ -219,10 +216,7 @@ export default function App() {
             messageCount={messages.length}
           />
 
-          {/* Main Chat Panel */}
           <main className="flex-1 flex flex-col min-w-0 md:ml-72 bg-slate-950/60">
-            
-            {/* Top Sub-Bar: Active Topic Breadcrumb */}
             <div className="h-10 px-4 sm:px-6 border-b border-slate-900 bg-slate-950/70 backdrop-blur-xs flex items-center justify-between text-xs text-slate-400">
               <div className="flex items-center gap-2 font-mono">
                 <span className="text-slate-500">Assistant</span>
@@ -242,7 +236,6 @@ export default function App() {
               )}
             </div>
 
-            {/* Global Error Banner */}
             {errorBanner && (
               <div className="mx-4 mt-3 p-3 rounded-xl bg-red-950/50 border border-red-900/80 flex items-center justify-between text-xs text-red-300 shadow-sm">
                 <span>{errorBanner}</span>
@@ -255,7 +248,6 @@ export default function App() {
               </div>
             )}
 
-            {/* Conversation Stream */}
             <div className="flex-1 overflow-y-auto">
               <div className="pb-6">
                 {messages.map((message) => (
@@ -269,7 +261,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Chat Input Dock */}
             <ChatInput
               onSendMessage={handleSendMessage}
               isGenerating={isGenerating}
@@ -279,11 +270,9 @@ export default function App() {
               activeTopic={selectedTopic}
               onClearTopic={handleNewChat}
             />
-
           </main>
         </div>
       )}
-
     </div>
   );
 }
