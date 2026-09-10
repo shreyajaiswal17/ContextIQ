@@ -1,66 +1,140 @@
 # ContextIQ
 
-ContextIQ is a RAG-powered DSA knowledge assistant designed to generate accurate, context-aware responses by retrieving relevant information from a curated DSA knowledge base. It combines semantic retrieval with Google Gemini to ground responses in the source content and supports multi-turn conversations through query rewriting for better follow-up understanding.
+ContextIQ is a RAG-powered (Retrieval-Augmented Generation) DSA knowledge assistant designed to deliver accurate, context-grounded responses by querying a curated Data Structures and Algorithms knowledge base. It combines semantic vector retrieval with Google Gemini to ground its explanations directly in source documentation and maintains conversation coherence through multi-turn query rewriting.
 
+---
 
 ## Tech Stack
 
-- **Frontend**: React 18, Vite, Tailwind CSS, Lucide Icons, React Markdown (syntax highlighted code blocks)
+- **Frontend**: React 19, Vite, Tailwind CSS v4, Lucide Icons
 - **Backend API**: Express.js (Node.js ES Modules)
-- **AI Models**: Google Gemini 3.5 Flash (Query Rewriter & Grounded Generator), Gemini Embedding 001 (768-dim)
+- **AI Models**: 
+  - **Generation & Rewriting**: Google Gemini 3.5 Flash (`gemini-3.5-flash`)
+  - **Vector Embeddings**: Gemini Embedding 001 (`gemini-embedding-001`, 768-dim)
 - **Vector Database**: Pinecone
-- **RAG Pipeline**: Semantic retrieval, multi-turn query rewriting, grounded response generation
+- **RAG Pipeline**: Multi-turn query rewriting, semantic cosine similarity search, chunk attribution, grounded response synthesis
 
-## How It Works
+---
+
+## Architecture & RAG Pipeline
 
 ```
-User Query  
-    ↓  
-Query Rewriting (Gemini 3.5 Flash)  
-    ↓  
-Embedding Generation (Gemini Embedding 001)  
-    ↓  
-Pinecone Semantic Search (Top-5 Vector Search)  
-    ↓  
-Relevant Context Retrieval (Dsa.pdf Chunks)  
-    ↓  
-Gemini Response Generation (Grounded DSA Answer)
+User Query (e.g. "What is its time complexity?")
+    ↓
+Query Rewriter (Gemini 3.5 Flash + Conversation History)
+    ↓
+Standalone Query (e.g. "What is the time complexity of Merge Sort?")
+    ↓
+Embedding Model (Gemini Embedding 001 → 768-dim vector)
+    ↓
+Vector Retrieval (Pinecone Top-5 nearest neighbors from Dsa.pdf)
+    ↓
+Context Assembly (Retrieved knowledge chunks + similarity scores)
+    ↓
+Grounded Generation (Gemini 3.5 Flash with strict technical system prompt)
+    ↓
+Response Delivered (Answer + Source Attribution + Rewritten Query transparency)
 ```
+
+---
+
+## Project Structure
+
+```text
+RAG/
+├── Dsa.pdf                 # Curated DSA reference document (knowledge source)
+├── index.js                # Interactive CLI chat script (npm start)
+├── server.js               # Express API backend server (npm run server)
+├── .env.example            # Template for required environment variables
+├── package.json            # Root package configuration & npm scripts
+├── frontend/               # React + Vite web application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatInput.jsx     # Input dock with topic pills and action buttons
+│   │   │   ├── ChatMessage.jsx   # Message renderer with markdown, copy, & source drawer
+│   │   │   ├── HomePage.jsx      # Landing view with category cards & quick starters
+│   │   │   ├── Navbar.jsx        # Navigation bar & system status indicator
+│   │   │   └── Sidebar.jsx       # Topics sidebar for focused DSA exploration
+│   │   ├── App.jsx               # Main state controller, routing, & API integration
+│   │   ├── index.css             # Tailwind CSS styling and theme setup
+│   │   └── main.jsx              # React app mount entry point
+│   ├── vite.config.js      # Vite config with /api reverse proxy to port 5000
+│   └── package.json        # Frontend dependencies & scripts
+└── README.md
+```
+
+---
 
 ## Key Features
 
-- **Modern Glassmorphic Dark UI**: Built with React and Tailwind CSS with real-time status indicators.
-- **Semantic Search over DSA Content**: 227 vectors indexed in Pinecone with similarity score badges.
-- **Context Chunk Inspector**: Inspect exact source excerpts from `Dsa.pdf` used to ground each response.
-- **Query Rewriting Transparency**: Visualizes how ContextIQ rewrites follow-up questions for standalone retrieval.
-- **Interactive Code Blocks**: Formatted DSA algorithms with one-click code copying.
-- **Quick-Start Starter Cards**: Pre-configured prompts for Binary Search Trees, AVL Trees, Graphs, Sorting, and Complexity Analysis.
+- **Modern Glassmorphic Dark UI**: Custom-built with React 19, Tailwind CSS v4, and Lucide icons.
+- **Context-Grounded Retrieval**: High-precision vector search over indexed DSA chunks with similarity score badges.
+- **Source Chunk Inspector**: View the exact excerpts from `Dsa.pdf` used to ground each response.
+- **Transparent Query Rewriting**: Inspect how ContextIQ reformulates follow-up questions for standalone retrieval.
+- **Rich Code Blocks**: Clean syntax formatting for C++, Python, and Java algorithms with one-click copy.
+- **Dual Interfaces**:
+  - **Web Application**: Rich visual chat UI with topic filters and inspectable sources.
+  - **Terminal CLI**: Fast, distraction-free command-line chat for quick reference.
 
-## Setup & Running
+---
 
-1. Clone the repository and install dependencies:
+
+## Setup & Installation
+
+### 1. Clone & Install Dependencies
 
 ```bash
 git clone <your-repository-url>
 cd ContextIQ
+
+# Install root dependencies (Express, Gemini SDK, Pinecone)
 npm install
+
+# Install frontend dependencies (React, Vite, Tailwind CSS)
 npm install --prefix frontend
 ```
 
-2. Create a `.env` file in the root folder:
+### 2. Configure Environment Variables
+
+Create a `.env` file in the root directory (or copy from `.env.example`):
+
 ```env
-GOOGLE_API_KEY=your_google_api_key
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_INDEX_NAME=your_index_name
+GOOGLE_API_KEY=your_google_api_key_here
+PINECONE_API_KEY=your_pinecone_api_key_here
+PINECONE_INDEX_NAME=genai
+PINECONE_ENVIRONMENT=us-east-1
+PORT=5000
 ```
 
-3. Start both the Backend API and React UI:
+---
+
+## Running the Application
+
+### Option A: Web Application (Recommended)
+
+Run both the Express backend and React frontend concurrently:
 
 ```bash
 npm run dev
 ```
 
-- **React Web App**: [http://localhost:5173](http://localhost:5173)
-- **Express Backend API**: [http://localhost:5000](http://localhost:5000)
+- **Frontend App**: [http://localhost:5173](http://localhost:5173)
+- **Backend API**: [http://localhost:5000](http://localhost:5000)
 
-*(You can also run the CLI script directly using `npm start`)*
+Alternatively, run each service separately in dedicated terminals:
+```bash
+# Terminal 1: Start backend server
+npm run server
+
+# Terminal 2: Start frontend dev server
+npm run frontend
+```
+
+### Option B: Terminal CLI
+
+To chat with ContextIQ directly in your terminal without opening a browser:
+
+```bash
+npm start
+```
+Type your DSA questions directly into the prompt. Type `exit` or `quit` to end the session.
