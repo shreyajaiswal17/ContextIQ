@@ -35,6 +35,27 @@ function CodeBlock({ language, value }) {
   );
 }
 
+function normalizeAssistantContent(content) {
+  if (typeof content !== 'string') return content;
+
+  const looksLikeCode = (value) => {
+    const codePatterns = [
+      /(^|\n)\s*(const|let|var|function|class|def|public|private|return)\b/,
+      /(^|\n)\s*#include\s*[<"]|import\s+\w+/, 
+      /=>|\bif\s*\([^\n]+\)|\bfor\s*\([^\n]+\)|[{};]\s*$/m,
+    ];
+
+    return codePatterns.some((pattern) => pattern.test(value));
+  };
+
+  const normalized = content.replace(/```([\w+#.-]*)\s*\n([\s\S]*?)\n```/g, (fence, language, value) => {
+    const hasLanguage = Boolean(language.trim());
+    return hasLanguage || looksLikeCode(value) ? fence : value.trim();
+  });
+
+  return normalized.trim();
+}
+
 function TopicStarterCard({ message, onSelectSuggestion }) {
   const topicTitle = message.topicTitle || "Ask ContextIQ";
   const topicDesc = message.topicDesc || "Ask a DSA concept, algorithm, complexity, or implementation question.";
@@ -98,6 +119,7 @@ function TopicStarterCard({ message, onSelectSuggestion }) {
 export default function ChatMessage({ message, onSelectSuggestion }) {
   const isUser = message.role === 'user';
   const isStarter = message.isStarter || message.id === 'initial-greeting' || message.id?.startsWith('topic-greeting-');
+  const assistantContent = isUser ? message.content : normalizeAssistantContent(message.content);
 
   if (isStarter) {
     return <TopicStarterCard message={message} onSelectSuggestion={onSelectSuggestion} />;
@@ -134,7 +156,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
               {message.content}
             </div>
           ) : (
-            <div className="text-sm leading-relaxed text-slate-200">
+            <div className="max-w-3xl text-[15px] leading-7 text-slate-200">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -154,13 +176,13 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                     );
                   },
                   p({ children }) {
-                    return <div className="mb-3 last:mb-0 leading-relaxed">{children}</div>;
+                    return <div className="mb-4 last:mb-0 leading-7">{children}</div>;
                   },
                   ul({ children }) {
-                    return <ul className="my-2.5 ml-5 list-disc space-y-1.5 text-slate-300">{children}</ul>;
+                    return <ul className="my-3 ml-5 list-disc space-y-2 text-slate-300">{children}</ul>;
                   },
                   ol({ children }) {
-                    return <ol className="my-2.5 ml-5 list-decimal space-y-1.5 text-slate-300">{children}</ol>;
+                    return <ol className="my-3 ml-5 list-decimal space-y-2 text-slate-300">{children}</ol>;
                   },
                   li({ children }) {
                     return <li className="pl-1">{children}</li>;
@@ -192,7 +214,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
                   }
                 }}
               >
-                {message.content}
+                {assistantContent}
               </ReactMarkdown>
 
               {message.suggestions && message.suggestions.length > 0 && (
