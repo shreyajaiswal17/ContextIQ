@@ -103,11 +103,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
     return <TopicStarterCard message={message} onSelectSuggestion={onSelectSuggestion} />;
   }
 
-  const hasRefinedQuery = !isUser && 
-    Boolean(message.rewrittenQuestion) && 
-    Boolean(message.originalQuestion) && 
-    message.rewrittenQuestion.trim().toLowerCase() !== message.originalQuestion.trim().toLowerCase();
-
   return (
     <div className={`py-4 sm:py-5 px-4 sm:px-6 transition-colors ${
       isUser ? 'bg-transparent' : 'bg-slate-900/30 border-y border-slate-900/60'
@@ -128,7 +123,7 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
         <div className="flex-1 min-w-0 space-y-2">
           <div className="flex items-center gap-2 text-xs">
             <span className="font-semibold text-slate-200">
-              {isUser ? 'You' : 'ContextIQ Assistant'}
+              {isUser ? 'You' : 'Your Study Buddy'}
             </span>
             <span className="text-slate-600">/</span>
             <span className="text-slate-500 font-mono text-[11px]">{message.timestamp || 'Just now'}</span>
@@ -140,18 +135,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
             </div>
           ) : (
             <div className="text-sm leading-relaxed text-slate-200">
-              {hasRefinedQuery && (
-                <details className="mb-3 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
-                  <summary className="hover:text-slate-400 transition-colors inline-flex items-center gap-1.5 py-0.5">
-                    <span>Search query refined</span>
-                  </summary>
-                  <div className="mt-1.5 p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/90 text-xs text-slate-400 space-y-1">
-                    <div><span className="text-slate-500 font-mono">Original:</span> "{message.originalQuestion}"</div>
-                    <div><span className="text-slate-500 font-mono">Retrieved as:</span> "{message.rewrittenQuestion}"</div>
-                  </div>
-                </details>
-              )}
-
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -211,36 +194,6 @@ export default function ChatMessage({ message, onSelectSuggestion }) {
               >
                 {message.content}
               </ReactMarkdown>
-
-              {message.sources && message.sources.length > 0 && (
-                <div className="mt-4 pt-3.5 border-t border-slate-800/80">
-                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">
-                    Retrieved Context
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {message.sources.slice(0, 3).map((source, idx) => (
-                      <div 
-                        key={source.id || idx}
-                        className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex flex-col justify-between hover:border-slate-700 transition-colors"
-                      >
-                        <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
-                          <span className="text-slate-300 font-medium truncate">
-                            {source.pageNumber ? `DSA Base · Pg ${source.pageNumber}` : "DSA Knowledge Base"}
-                          </span>
-                          {source.score != null && (
-                            <span className="text-cyan-400 font-mono text-[10px] shrink-0 ml-1">
-                              Score: {source.score.toFixed(2)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-[11px] text-slate-400 line-clamp-3 leading-relaxed font-sans">
-                          {source.text || "Context chunk matched for query grounding."}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               {message.suggestions && message.suggestions.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-slate-800/80">

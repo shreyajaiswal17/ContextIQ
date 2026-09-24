@@ -126,7 +126,7 @@ export default function App() {
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setIsGenerating(true);
-    setGenerationPhase("Retrieving relevant context...");
+    setGenerationPhase("Thinking...");
 
     const phaseTimer = setTimeout(() => {
       setGenerationPhase("Generating grounded response...");
@@ -222,7 +222,7 @@ export default function App() {
                 <span className="text-slate-500">Assistant</span>
                 <span className="text-slate-700">/</span>
                 <span className="text-slate-300 font-medium">
-                  {selectedTopic ? selectedTopic.title : 'Knowledge Base'}
+                  {selectedTopic ? selectedTopic.title : 'DSA Study Buddy'}
                 </span>
               </div>
 

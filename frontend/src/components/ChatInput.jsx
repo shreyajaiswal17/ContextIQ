@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function ChatInput({ 
   onSendMessage, 
   isGenerating, 
-  generationPhase = "Retrieving relevant context...",
+  generationPhase = "Thinking...",
   disabled, 
   placeholder = "Ask any doubt, concept, or code implementation...",
   prefill = "",
@@ -64,14 +64,14 @@ export default function ChatInput({
             </div>
           ) : (
             <div className="text-[11px] font-mono text-slate-500">
-              DSA Knowledge Base
+              Here to help with DSA
             </div>
           )}
 
           {isGenerating && (
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
-              {generationPhase || "Retrieving relevant context..."}
+              {generationPhase || "Thinking..."}
             </div>
           )}
         </div>
@@ -101,7 +101,7 @@ export default function ChatInput({
         </form>
 
         <div className="flex items-center justify-between mt-2 px-1 text-[11px] font-mono text-slate-500">
-          <span>ContextIQ RAG Assistant</span>
+          <span>Your friendly DSA study buddy</span>
           <span>
             <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700/80 text-slate-300 text-[10px]">Enter</kbd> to send &middot; <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700/80 text-slate-300 text-[10px]">Shift+Enter</kbd> newline
           </span>
